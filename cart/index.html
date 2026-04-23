@@ -1,0 +1,1991 @@
+<html lang="pt-BR"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carta</title>
+  
+  <link rel="stylesheet" href="./styles/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+  <link rel="stylesheet" href="./styles/style2.css">
+  <link href="/css2" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet">
+  <link href="/css2" rel="stylesheet">
+  <link href="/css2" rel="stylesheet">
+<style>
+.letter-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -10%);
+  z-index: 100;
+  width: 400px;
+  opacity: 0;
+  animation: fadeInLetter 1s 4s forwards;
+}
+letter-container:has(.letter.opened) {
+  z-index: 20001;
+}
+
+@keyframes fadeInLetter {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -10%) scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -10%) scale(1);
+  }
+}
+
+:root {
+  --bg-envelope-color: #f3d6df;
+  --heart-color: #f38cb4;
+  --envelope-tab: #f7bfd1;
+  --envelope-cover: #efadc4;
+  --shadow-color: rgba(52, 28, 48, 0.22);
+  --txt-color: #4a3951;
+  --paper-bg: #fff9f5;
+  --paper-bg-top: #fffaf7;
+  --paper-bg-bottom: #fbe9f1;
+  --paper-panel-top: rgba(255, 248, 251, 0.88);
+  --paper-panel-middle: rgba(250, 229, 239, 0.56);
+  --paper-panel-bottom: rgba(238, 188, 212, 0.16);
+  --paper-panel-accent: rgba(194, 225, 210, 0.16);
+  --paper-edge: rgba(239, 189, 213, 0.32);
+  --paper-border: rgba(111, 84, 101, 0.42);
+  --letter-title-color: #c85b87;
+  --letter-title-gradient: linear-gradient(90deg, #fff8f0 0%, #ffc7dd 34%, #e98fb2 64%, #b8dfca 100%);
+  --signature-color: #8f5e76;
+  --page-background-solid: #f8ebef;
+  --page-background: linear-gradient(180deg, #6f485f 0%, #6a617a 48%, #5b8572 100%);
+  --page-background-overlay: radial-gradient(circle at top, rgba(255, 183, 212, 0.16) 0%, rgba(255, 183, 212, 0) 38%);
+  --overlay-bg: linear-gradient(135deg, rgba(99, 49, 78, 0.94), rgba(54, 95, 83, 0.9));
+  --overlay-text-color: #ffffff;
+  --overlay-accent: rgba(255, 221, 232, 0.96);
+  --overlay-title-gradient: linear-gradient(180deg, #fffaf7 0%, #ffdbe8 42%, #c9ead8 100%);
+  --overlay-title-shadow: rgba(170, 104, 146, 0.28);
+  --overlay-glow-soft: rgba(255, 212, 227, 0.42);
+  --overlay-glow-mid: rgba(233, 146, 190, 0.34);
+  --overlay-glow-strong: rgba(201, 234, 216, 0.26);
+  --site-title-color: #fffafc;
+  --site-title-gradient: linear-gradient(180deg, #fffaf7 0%, #ffd3e3 44%, #b6ddc9 100%);
+  --site-title-shadow: 0 0 10px rgba(255, 214, 228, 0.32), 0 0 22px rgba(178, 109, 150, 0.2);
+  --theme-title-shadow: rgba(157, 98, 135, 0.32);
+  --overlay-heart-filter: hue-rotate(-12deg) saturate(1.08) brightness(1.03);
+  --control-bg: rgba(255, 255, 255, 0.16);
+  --control-border: rgba(255, 255, 255, 0.32);
+  --control-text: #ffffff;
+  --star-color: rgba(255, 238, 245, 0.86);
+  --star-glow: rgba(255, 214, 228, 0.52);
+  --moon-color: #fff2f7;
+  --moon-glow: rgba(255, 221, 235, 0.44);
+  --shooting-star-color: #fff2f8;
+  --shooting-star-tail: rgba(255, 225, 237, 0.96);
+  --petal-highlight: #ffe7f2;
+  --petal-mid: #f3b3d1;
+  --petal-deep: #ca6d9d;
+  --petal-shadow: #8d4d71;
+  --petal-core: #4c2d49;
+  --petal-border: #9d6281;
+  --petal-glow: #ecbad4;
+  --petal-shine: #ffe4f0;
+  --petal-inner-shadow: rgba(116, 61, 91, 0.42);
+  --petal-inner-highlight: #fff1f8;
+  --petal-border-inner: #b17393;
+  --petal-center-start: #7c4862;
+  --petal-center-end: #2b1b2b;
+  --petal-center-glow: rgba(228, 170, 199, 0.48);
+  --stem-dark: #517540;
+  --stem-mid: #78a85e;
+  --stem-light: #b5d78f;
+  --stem-shadow: rgba(48, 35, 25, 0.28);
+  --stem-highlight: rgba(255, 255, 255, 0.18);
+  --grass-color: #78a85d;
+  --grass-overlay: rgba(63, 88, 68, 0.16);
+  --bouquet-backdrop: radial-gradient(circle at center, rgba(255, 185, 214, 0.3) 0%, rgba(201, 231, 209, 0.2) 42%, rgba(91, 122, 108, 0) 76%);
+  --wrapper-filter: hue-rotate(-8deg) saturate(1.02) brightness(1.03);
+  --photo-shadow: drop-shadow(0 26px 28px rgba(15, 9, 33, 0.2)) drop-shadow(0 10px 14px rgba(15, 9, 33, 0.14));
+}
+
+body {
+  min-height: 100vh;
+  background: var(--page-background-solid);
+  background-image: var(--page-background-overlay), var(--page-background);
+  color: var(--txt-color);
+  transition: background 0.35s ease, color 0.35s ease;
+}
+
+body::before {
+  background-image:
+    radial-gradient(2px 2px at 20px 30px, var(--star-color), transparent),
+    radial-gradient(2px 2px at 40px 70px, var(--star-color), transparent),
+    radial-gradient(1px 1px at 90px 40px, var(--star-color), transparent),
+    radial-gradient(1px 1px at 130px 80px, var(--star-color), transparent),
+    radial-gradient(2px 2px at 160px 30px, var(--star-color), transparent);
+  opacity: 0.34;
+}
+
+body::after {
+  background: var(--moon-color);
+  box-shadow:
+    0 0 12px var(--moon-color),
+    0 0 24px var(--moon-glow),
+    inset -10px -5px 0 rgba(255, 255, 255, 0.14);
+  opacity: 0.78;
+}
+
+.shooting-star {
+  background: var(--shooting-star-color);
+  box-shadow: 0 0 6px 2px var(--star-glow);
+}
+
+.shooting-star::before {
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, var(--shooting-star-tail) 100%);
+}
+
+@keyframes glowPulse {
+  0%, 10% {
+    text-shadow: 
+      1px 1px 0 white, 
+      -1px -1px 0 white,  
+      1px -1px 0 white,  
+      -1px 1px 0 white,
+      0 0 1px #000,     
+      0 0 5px #000,  
+      0 0 10px #000, 
+      0 0 15px #000,    
+      0 0 20px #000;
+  }
+  50% {
+    text-shadow: 
+      1px 1px 0 white, 
+      -1px -1px 0 white,  
+      1px -1px 0 white,  
+      -1px 1px 0 white,
+      0 0 2px #000,     
+      0 0 8px #000,  
+      0 0 15px #000, 
+      0 0 35px #ff2e6d,
+      0 0 45px #fe3672;
+  }
+}
+
+.letter-title {
+  font-family: 'Tangerine', cursive;
+  color: var(--site-title-color);
+  font-size: 100px;
+  text-align: center;
+  margin: 20px 0;
+  text-shadow: var(--site-title-shadow);
+  animation: glowPulse 2.5s ease-in-out infinite;
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 40;
+}
+
+.envelope-wrapper {
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.2);
+  position: relative;
+  background-color: var(--bg-envelope-color);
+  box-shadow: 0 0 40px var(--shadow-color), 0 24px 48px rgba(0, 0, 0, 0.12);
+  border-radius: 15px;
+}
+
+.envelope-wrapper > .envelope {
+  position: relative;
+  width: 400px;
+  height: 300px;
+}
+
+.envelope-wrapper > .envelope::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 4;
+  border-top: 180px solid var(--envelope-tab);
+  border-right: 200px solid transparent;
+  border-left: 200px solid transparent;
+  transform-origin: top;
+  transition: all 0.5s ease-in-out 0.7s;
+  border-radius: 10px;
+}
+
+.tap-right {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  clip-path: polygon(100% 0, 0 100%, 100% 100%);
+  transform: rotate(-90deg,90deg);
+  border-bottom-right-radius: 10px;
+  border-top-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  background-color: var(--envelope-cover);
+}
+
+.tap-left {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  clip-path: polygon(0 0, 0% 100%, 100% 100%);
+  background-color: var(--envelope-cover);
+  transform: rotate(90deg, -90deg);
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.envelope > .letter {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background:
+    linear-gradient(165deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0) 32%),
+    linear-gradient(180deg, var(--paper-bg-top) 0%, var(--paper-bg) 48%, var(--paper-bg-bottom) 100%);
+  text-align: center;
+  box-shadow: 0 0 5px var(--shadow-color), inset 0 0 0 1px var(--paper-edge);
+  padding: 15px;
+  border-radius: 10px;
+  transition: transform 0.5s ease-in-out;
+}
+
+.envelope > .letter > .text {
+  font-family: 'Caveat', 'Segoe Script', 'Bradley Hand', cursive;
+  color: var(--txt-color);
+  text-align: left;
+  font-size: 24px;
+  position: relative;
+  border: 3px solid transparent;
+  border-radius: 16px;
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.08) 24%, rgba(255, 255, 255, 0) 42%) padding-box,
+    radial-gradient(circle at 18% 18%, var(--paper-panel-top) 0%, rgba(255, 255, 255, 0) 46%) padding-box,
+    radial-gradient(circle at 84% 24%, var(--paper-panel-accent) 0%, rgba(255, 255, 255, 0) 50%) padding-box,
+    radial-gradient(circle at 50% 108%, var(--paper-panel-bottom) 0%, rgba(255, 255, 255, 0) 68%) padding-box,
+    linear-gradient(180deg, var(--paper-panel-top) 0%, var(--paper-panel-middle) 44%, var(--paper-panel-bottom) 100%) padding-box,
+    linear-gradient(145deg, rgba(255, 255, 255, 0.34) 0%, var(--paper-border) 18%, rgba(255, 255, 255, 0.06) 100%) border-box;
+  background-clip: padding-box, padding-box, padding-box, padding-box, padding-box, border-box;
+  padding: 10px;
+  height: 100%;
+  line-height: 28px;
+  cursor: pointer;
+  overflow: scroll;
+  overflow-x: hidden;
+  overflow-y: auto;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  white-space: pre-wrap;
+  letter-spacing: 0.015em;
+  max-width: 100%;
+  box-sizing: border-box;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.24),
+    inset 0 -16px 28px rgba(255, 255, 255, 0.04),
+    0 10px 24px rgba(27, 19, 33, 0.08);
+  backdrop-filter: blur(3px);
+}
+
+.envelope > .letter > .text p {
+  margin: 0 0 0.4rem;
+}
+
+.envelope > .letter > .text p:last-child {
+  margin-bottom: 0;
+}
+
+.envelope > .letter > .text > p {
+  display: none;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.letter-content {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.letter-card-title {
+  margin: 0;
+  width: 100%;
+  text-align: center;
+  color: var(--letter-title-color);
+  background: none;
+  -webkit-text-fill-color: currentColor;
+  font-family: "Cormorant Garamond", "Times New Roman", serif;
+  letter-spacing: 0.03em;
+  font-size: 1.32em;
+  line-height: 1.12;
+  font-weight: 700;
+  filter: drop-shadow(0 3px 8px var(--theme-title-shadow));
+}
+
+.letter-photo-wrap {
+  width: 100%;
+}
+
+.letter-photo-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  display: grid;
+  place-items: center;
+  overflow: visible;
+  background: transparent;
+  perspective: 1200px;
+}
+
+.letter-photo-frame::before {
+  content: none;
+}
+
+.letter-photo {
+  position: relative;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  display: block;
+  object-fit: contain;
+  object-position: center;
+  border-radius: 22px;
+  background: transparent;
+  box-shadow: none;
+  filter: var(--photo-shadow);
+  transform: rotateX(7deg) rotateY(-6deg);
+  transform-origin: center top;
+}
+
+.letter-card-message {
+  margin: 0;
+  width: 100%;
+  color: var(--txt-color);
+  white-space: pre-wrap;
+  line-height: 1.55;
+}
+
+.letter-card-signature {
+  margin: auto 0 0;
+  width: 100%;
+  text-align: right;
+  color: var(--signature-color);
+  font-weight: 700;
+}
+
+.overlay-content p {
+  max-width: 560px;
+  margin: 0 auto 34px;
+  color: rgba(255, 255, 255, 0.86);
+  font-size: clamp(0.95rem, 1.8vw, 1.15rem);
+  line-height: 1.65;
+}
+
+.music-control.hidden {
+  display: none !important;
+}
+
+.preview-return {
+  position: fixed;
+  top: 22px;
+  left: 22px;
+  z-index: 20050;
+  border: 0;
+  border-radius: 999px;
+  padding: 12px 18px;
+  background: var(--control-bg);
+  color: var(--control-text);
+  border: 1px solid var(--control-border);
+  font: inherit;
+  font-weight: 700;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+  cursor: pointer;
+}
+
+.floating-hearts {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 45;
+}
+
+.floating-heart {
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  background: var(--heart-color);
+  transform: rotate(45deg);
+  opacity: 0.7;
+  animation: float 8s infinite linear;
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease;
+}
+
+.floating-heart:hover {
+  transform: rotate(45deg) scale(1.5);
+  opacity: 1;
+}
+
+.floating-heart::before,
+.floating-heart::after {
+  content: '';
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  background: var(--heart-color);
+  border-radius: 50%;
+}
+
+.floating-heart::before {
+  top: -15px;
+  left: 0;
+}
+
+.floating-heart::after {
+  top: 0;
+  left: -15px;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(100vh) rotate(45deg) scale(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.7;
+    transform: translateY(90vh) rotate(45deg) scale(1);
+  }
+  90% {
+    opacity: 0.7;
+    transform: translateY(-10vh) rotate(45deg) scale(1);
+  }
+  100% {
+    transform: translateY(-20vh) rotate(45deg) scale(0);
+    opacity: 0;
+  }
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: translate(-50%, -50%) rotate(45deg) scale(1); }
+  50% { transform: translate(-50%, -50%) rotate(45deg) scale(1.1); }
+}
+
+.heart {
+  animation: heartbeat 2s ease-in-out infinite;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 30px;
+  height: 30px;
+  background: var(--heart-color);
+  transform: translate(-50%, 0%) rotate(45deg) !important;
+  transition: transform 0.5s ease-in-out 1s;
+  box-shadow: 0 1px 6px var(--shadow-color);
+  cursor: pointer;
+  z-index: 999;
+}
+
+.heart:before,
+.heart:after {
+  content: "";
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background-color: var(--heart-color);
+  border-radius: 80%;
+}
+
+.heart:before {
+  top: -15px;
+}
+
+.heart:after {
+  right: 15px;
+}
+
+.flap > .envelope:before {
+  transform: rotateX(180deg);
+  z-index: 0;
+}
+
+.flap > .heart {
+  transform: rotate(180deg);
+  transition-delay: 0.4s;
+}
+
+.letter.letter-opening {
+  transform: translateY(-290px) scale(1);
+  animation-delay: 0.5s;
+  transition: transform 0.5s ease-in-out;
+}
+
+.letter.closing-letter {
+  transform: translateY(0) scale(1);
+  transition: transform 0.5s ease-in-out;
+  z-index: 10000;
+}
+
+.letter.opened {
+  z-index: 20000;
+  transform: translate(0%, -100%) scale(2);
+}
+
+body.letter-open .flowers,
+body.letter-open .shooting-stars,
+body.letter-open .shooting-star,
+body.letter-open .morita-text,
+body.letter-open .flower,
+body.letter-open .growing-grass,
+body.letter-open .grow-ans {
+  animation-play-state: paused !important;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--envelope-cover);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--heart-color);
+}
+
+@media (min-width: 1024px) {
+  .letter-container {
+    width: 384px;
+    top: 50%;
+  }
+  .envelope-wrapper > .envelope {
+    width: 384px;
+    height: 288px;
+  }
+  .envelope-wrapper > .envelope::before {
+    border-top: 173px solid var(--envelope-tab);
+    border-right: 192px solid transparent;
+    border-left: 192px solid transparent;
+  }
+  .envelope > .letter {
+    padding: 14px;
+  }
+  .envelope > .letter > .text {
+    font-size: 11.5px;
+    line-height: 14px;
+    border-width: 2.9px;
+    padding: 10px;
+    overflow-x: hidden;
+    word-wrap: break-word;
+  }
+  .letter-content {
+    gap: 8px;
+  }
+  .letter-card-title {
+    font-size: 1.48em;
+  }
+  .letter-photo-frame {
+    border-radius: 16px;
+  }
+  .heart {
+    width: 29px;
+    height: 29px;
+  }
+  .heart:before,
+  .heart:after {
+    width: 29px;
+    height: 29px;
+  }
+  .heart:before {
+    top: -14px;
+  }
+  .heart:after {
+    right: 14px;
+  }
+  .letter.letter-opening,
+  .letter.closing-letter {
+    transform: translateY(-278px) scale(1);
+  }
+  .letter.opened {
+    transform: translate(0%, -70%) scale(2);
+  }
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+}
+@media (max-width: 768px) {
+  .letter-container {
+    width: 200px;
+    top: 75%;
+  }
+  .envelope-wrapper > .envelope {
+    width: 200px;
+    height: 150px;
+  }
+  .envelope-wrapper > .envelope::before {
+    border-top: 90px solid var(--envelope-tab);
+    border-right: 100px solid transparent;
+    border-left: 100px solid transparent;
+  }
+  .envelope > .letter {
+    padding: 7px;
+  }
+  .envelope > .letter > .text {
+    font-size: 10px;
+    line-height: 13px;
+    border-width: 1.5px;
+    padding: 5px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    max-width: 100%;
+    box-sizing: border-box;
+    margin: 0;
+  }
+  .letter-content {
+    gap: 7px;
+  }
+  .letter-card-title {
+    font-size: 1.28em;
+  }
+  .letter-photo-frame {
+    border-radius: 12px;
+  }
+  .heart {
+    width: 15px;
+    height: 15px;
+  }
+  .heart:before,
+  .heart:after {
+    width: 15px;
+    height: 15px;
+  }
+  .heart:before {
+    top: -7.5px;
+  }
+  .heart:after {
+    right: 7.5px;
+  }
+  .letter.letter-opening,
+  .letter.closing-letter {
+    transform: translateY(-145px) scale(1);
+  }
+  .letter.opened {
+    transform: translate(0%, -100%) scale(2);
+  }
+  ::-webkit-scrollbar {
+    width: 4px;
+  }
+}
+
+@media (max-width: 400px) {
+  .letter-container {
+    left: 45%;
+    width: 160px;
+    top: 75%;
+  }
+  .envelope-wrapper > .envelope {
+    width: 160px;
+    height: 120px;
+  }
+  .envelope-wrapper > .envelope::before {
+    border-top: 72px solid var(--envelope-tab);
+    border-right: 80px solid transparent;
+    border-left: 80px solid transparent;
+  }
+  .envelope > .letter > .text {
+    font-size: 7px;
+    line-height: 10px;
+    padding: 3px;
+    overflow-x: hidden;
+  }
+  .letter-card-title {
+    font-size: 1.2em;
+  }
+  .letter-photo-frame {
+    border-radius: 10px;
+  }
+  .letter.letter-opening,
+  .letter.closing-letter {
+    transform: translateY(-116px) scale(1);
+  }
+  .letter.opened {
+    transform: translate(0%, -150%) scale(2);
+  }
+}
+
+#audio-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--overlay-bg);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: opacity 0.8s ease;
+}
+
+.overlay-content {
+  text-align: center;
+  color: var(--overlay-text-color);
+  position: relative;
+  padding: 80px 60px;
+}
+
+.overlay-content h2 {
+  font-family: 'Caveat', cursive;
+  font-size: clamp(2.8rem, 7vw, 6rem);
+  margin-bottom: 34px;
+  color: transparent;
+  background-image: var(--overlay-title-gradient);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: none;
+  position: relative;
+  animation: glow 2s ease-in-out infinite;
+  filter: drop-shadow(0 8px 18px var(--overlay-title-shadow));
+}
+
+.overlay-content h2::after {
+  content: '';
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--overlay-accent), transparent);
+  animation: expand 2s ease-in-out infinite;
+}
+
+@keyframes glow {
+  0%, 100% {
+    text-shadow: 
+      0 0 8px var(--overlay-glow-soft),
+      0 0 18px var(--overlay-glow-mid);
+  }
+  50% {
+    text-shadow:
+      0 0 12px var(--overlay-glow-soft),
+      0 0 24px var(--overlay-glow-mid),
+      0 0 36px var(--overlay-glow-strong);
+  }
+}
+
+@keyframes expand {
+  0%, 100% { width: 100px; }
+  50% { width: 200px; }
+}
+
+.overlay-image {
+  max-width: 250px;
+  width: 40vw;
+  height: auto;
+  animation: heartbeat1 1.2s ease-in-out infinite;
+  filter: var(--overlay-heart-filter) drop-shadow(0 0 12px var(--overlay-glow-mid));
+}
+
+#audio-overlay .overlay-image {
+  animation-play-state: running !important;
+}
+
+@keyframes heartbeat1 {
+  0% {
+    transform: scale(1);
+    filter: var(--overlay-heart-filter) drop-shadow(0 0 5px var(--overlay-glow-mid));
+  }
+  50% {
+    transform: scale(1.2);
+    filter: var(--overlay-heart-filter) drop-shadow(0 0 10px var(--overlay-glow-soft));
+  }
+  100% {
+    transform: scale(1);
+    filter: var(--overlay-heart-filter) drop-shadow(0 0 5px var(--overlay-glow-mid));
+  }
+}
+
+.morita-text {
+  color: transparent !important;
+  background-image: var(--site-title-gradient);
+  background-size: 180% 100%;
+  background-repeat: no-repeat;
+  background-position: 0% 50%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: none;
+  filter: drop-shadow(0 4px 10px var(--theme-title-shadow));
+  transition: filter 0.35s ease;
+  animation: siteTitleReveal 3.5s ease-out forwards, gradientShift 12s ease-in-out infinite alternate;
+}
+
+@keyframes siteTitleReveal {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) scale(0.92);
+    filter: drop-shadow(0 0 0 transparent);
+  }
+  35% {
+    opacity: 0.2;
+    transform: translateX(-50%) scale(1.02);
+    filter: drop-shadow(0 4px 14px var(--theme-title-shadow));
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+    filter: drop-shadow(0 4px 10px var(--theme-title-shadow));
+  }
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+.flower__leafs::after {
+  background-color: var(--petal-glow);
+}
+
+.flower__leaf {
+  background: radial-gradient(circle at 50% 20%, var(--petal-highlight) 0%, var(--petal-mid) 30%, var(--petal-deep) 60%, var(--petal-shadow) 80%, var(--petal-core) 100%);
+  border-color: var(--petal-border);
+  box-shadow:
+    0 0 1vmin var(--petal-glow),
+    0 0 0.5vmin var(--petal-shine),
+    inset 0 0 1.5vmin var(--petal-inner-shadow);
+}
+
+.flower__leaf:nth-child(4),
+.flower__leaf:nth-child(5),
+.flower__leaf:nth-child(6) {
+  background: radial-gradient(circle at 50% 20%, var(--petal-inner-highlight) 0%, var(--petal-highlight) 30%, var(--petal-mid) 55%, var(--petal-deep) 80%, var(--petal-core) 100%);
+  border-color: var(--petal-border-inner);
+  box-shadow:
+    0 0 0.8vmin var(--petal-shine),
+    inset 0 0 1vmin var(--petal-inner-shadow);
+}
+
+.flower__white-circle {
+  background: radial-gradient(circle at 40% 40%, var(--petal-center-start), var(--petal-center-end));
+  box-shadow:
+    inset 0 0 0.8vmin var(--petal-center-glow),
+    0 0 1vmin var(--petal-center-glow),
+    0 0 0.3vmin var(--petal-center-glow);
+}
+
+.flower__line {
+  background-image: linear-gradient(180deg, var(--stem-dark) 0%, var(--stem-mid) 56%, var(--stem-light) 100%);
+  box-shadow: inset 0 0 2px var(--stem-shadow);
+  opacity: 0.95;
+}
+
+.flower__line__leaf {
+  background-image: linear-gradient(180deg, var(--stem-dark) 0%, var(--stem-mid) 52%, var(--stem-light) 100%);
+  opacity: 0.94;
+}
+
+.flower__grass {
+  --c: var(--grass-color);
+  opacity: 0.94;
+}
+
+.flower__grass__overlay {
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+.flowers::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 6vh;
+  transform: translateX(-50%);
+  width: min(130vmin, 92vw);
+  height: min(92vmin, 64vh);
+  background: var(--bouquet-backdrop);
+  filter: blur(24px);
+  opacity: 0.9;
+  pointer-events: none;
+  z-index: -120;
+}
+
+.flower-wrapping {
+  filter: var(--wrapper-filter);
+}
+
+.music-btn {
+  background: var(--control-bg) !important;
+  color: var(--control-text) !important;
+  border: 1px solid var(--control-border) !important;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.16);
+}
+
+#volumeSlider {
+  accent-color: var(--heart-color);
+}
+</style></head>
+
+<body class="not-loaded">
+  <div id="audio-overlay">
+    <div class="overlay-content">
+      <h2>Toque para abrir</h2>
+      <img src="./images/cora.svg" alt="Tocar para iniciar" class="overlay-image">
+    </div>
+  </div>
+
+  <button class="preview-return hidden" id="previewReturnBtn" type="button">Voltar</button>
+
+  <div class="shooting-stars">
+    <div class="shooting-star"></div>
+    <div class="shooting-star"></div>
+    <div class="shooting-star"></div>
+    <div class="shooting-star"></div>
+    <div class="shooting-star"></div>
+    <div class="shooting-star"></div>
+    <div class="shooting-star"></div>
+    <div class="shooting-star"></div>
+  </div>
+
+  <div class="music-control" style="z-index: 9998; position: fixed; transform: none;">
+    <button class="music-btn" id="musicBtn" aria-label="Alternar música">
+      <i class="fas fa-play" id="playIcon" style="display: inline-block;"></i>
+      <i class="fas fa-pause" id="pauseIcon" style="display: none;"></i>
+    </button>
+    <div class="volume-control" id="volumeControl">
+      <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.5" aria-label="Controle de volume">
+    </div>
+  </div>
+
+    <audio id="backgroundMusic" loop preload="auto"></audio>
+  
+  <div class="flowers">
+    <div class="flower-wrapping"></div>
+    
+    <div class="flower flower--1">
+      <div class="flower__leafs flower__leafs--1">
+        <div class="flower__leaf"></div>
+        <div class="flower__leaf"></div>
+        <div class="flower__leaf"></div>
+        <div class="flower__leaf"></div>
+        <div class="flower__leaf"></div>
+        <div class="flower__leaf"></div>
+        <div class="flower__white-circle"></div>
+      </div>
+      <div class="flower__line">
+        <div class="flower__line__leaf flower__line__leaf--1"></div>
+        <div class="flower__line__leaf flower__line__leaf--2"></div>
+        <div class="flower__line__leaf flower__line__leaf--3"></div>
+        <div class="flower__line__leaf flower__line__leaf--4"></div>
+      </div>
+    </div>
+    <div class="flower flower--2">
+      <div class="flower__leafs flower__leafs--2">
+        <div class="flower__leaf"></div>
+        <div class="flower__leaf"></div>
+        <div class="flower__leaf"></div>
+        <div class="flower__leaf"></div>
+        <div class="flower__leaf"></div>
+        <div class="flower__leaf"></div>
+        <div class="flower__white-circle"></div>
+      </div>
+      <div class="flower__line">
+        <div class="flower__line__leaf flower__line__leaf--1"></div>
+        <div class="flower__line__leaf flower__line__leaf--2"></div>
+        <div class="flower__line__leaf flower__line__leaf--3"></div>
+        <div class="flower__line__leaf flower__line__leaf--4"></div>
+      </div>
+    </div>
+    <div class="flower flower--3">
+      <div class="flower__leafs flower__leafs--3">
+        <div class="flower__leaf"></div>
+        <div class="flower__leaf"></div>
+        <div class="flower__leaf"></div>
+        <div class="flower__leaf"></div>
+        <div class="flower__leaf"></div>
+        <div class="flower__leaf"></div>
+        <div class="flower__white-circle"></div>
+      </div>
+      <div class="flower__line">
+        <div class="flower__line__leaf flower__line__leaf--1"></div>
+        <div class="flower__line__leaf flower__line__leaf--2"></div>
+        <div class="flower__line__leaf flower__line__leaf--3"></div>
+        <div class="flower__line__leaf flower__line__leaf--4"></div>
+      </div>
+    </div>
+    <div class="flower flower--4">
+      <div class="flower__leafs flower__leafs--4">
+        <div class="flower__leaf"></div>
+        <div class="flower__leaf"></div>
+        <div class="flower__leaf"></div>
+        <div class="flower__leaf"></div>
+        <div class="flower__leaf"></div>
+        <div class="flower__leaf"></div>
+        <div class="flower__white-circle"></div>
+      </div>
+      <div class="flower__line">
+        <div class="flower__line__leaf flower__line__leaf--1"></div>
+        <div class="flower__line__leaf flower__line__leaf--2"></div>
+        <div class="flower__line__leaf flower__line__leaf--3"></div>
+        <div class="flower__line__leaf flower__line__leaf--4"></div>
+      </div>
+    </div>
+    <div class="flower flower--5">
+      <div class="flower__leafs flower__leafs--5">
+        <div class="flower__leaf"></div>
+        <div class="flower__leaf"></div>
+        <div class="flower__leaf"></div>
+        <div class="flower__leaf"></div>
+        <div class="flower__leaf"></div>
+        <div class="flower__leaf"></div>
+        <div class="flower__white-circle"></div>
+      </div>
+      <div class="flower__line">
+        <div class="flower__line__leaf flower__line__leaf--1"></div>
+        <div class="flower__line__leaf flower__line__leaf--2"></div>
+        <div class="flower__line__leaf flower__line__leaf--3"></div>
+        <div class="flower__line__leaf flower__line__leaf--4"></div>
+      </div>
+    </div>
+    <div class="flower flower--6">
+      <div class="flower__leafs flower__leafs--6">
+        <div class="flower__leaf"></div>
+        <div class="flower__leaf"></div>
+        <div class="flower__leaf"></div>
+        <div class="flower__leaf"></div>
+        <div class="flower__leaf"></div>
+        <div class="flower__leaf"></div>
+        <div class="flower__white-circle"></div>
+      </div>
+      <div class="flower__line">
+        <div class="flower__line__leaf flower__line__leaf--1"></div>
+        <div class="flower__line__leaf flower__line__leaf--2"></div>
+        <div class="flower__line__leaf flower__line__leaf--3"></div>
+        <div class="flower__line__leaf flower__line__leaf--4"></div>
+      </div>
+    </div>
+    <div class="flower flower--7">
+      <div class="flower__leafs flower__leafs--7">
+        <div class="flower__leaf"></div>
+        <div class="flower__leaf"></div>
+        <div class="flower__leaf"></div>
+        <div class="flower__leaf"></div>
+        <div class="flower__leaf"></div>
+        <div class="flower__leaf"></div>
+        <div class="flower__white-circle"></div>
+      </div>
+      <div class="flower__line">
+        <div class="flower__line__leaf flower__line__leaf--1"></div>
+        <div class="flower__line__leaf flower__line__leaf--2"></div>
+        <div class="flower__line__leaf flower__line__leaf--3"></div>
+        <div class="flower__line__leaf flower__line__leaf--4"></div>
+      </div>
+    </div>
+    <div class="flower flower--8">
+      <div class="flower__leafs flower__leafs--8">
+        <div class="flower__leaf"></div>
+        <div class="flower__leaf"></div>
+        <div class="flower__leaf"></div>
+        <div class="flower__leaf"></div>
+        <div class="flower__leaf"></div>
+        <div class="flower__leaf"></div>
+        <div class="flower__white-circle"></div>
+      </div>
+      <div class="flower__line">
+        <div class="flower__line__leaf flower__line__leaf--1"></div>
+        <div class="flower__line__leaf flower__line__leaf--2"></div>
+        <div class="flower__line__leaf flower__line__leaf--3"></div>
+        <div class="flower__line__leaf flower__line__leaf--4"></div>
+      </div>
+    </div>
+    <div class="grow-ans" style="--d:1.2s">
+      <div class="flower__g-long">
+        <div class="flower__g-long__top"></div>
+        <div class="flower__g-long__bottom"></div>
+      </div>
+    </div>
+    <div class="growing-grass">
+      <div class="flower__grass flower__grass--1">
+        <div class="flower__grass--top"></div>
+        <div class="flower__grass--bottom"></div>
+        <div class="flower__grass__leaf flower__grass__leaf--1"></div>
+        <div class="flower__grass__leaf flower__grass__leaf--2"></div>
+        <div class="flower__grass__leaf flower__grass__leaf--3"></div>
+        <div class="flower__grass__leaf flower__grass__leaf--4"></div>
+        <div class="flower__grass__leaf flower__grass__leaf--5"></div>
+        <div class="flower__grass__leaf flower__grass__leaf--6"></div>
+        <div class="flower__grass__leaf flower__grass__leaf--7"></div>
+        <div class="flower__grass__leaf flower__grass__leaf--8"></div>
+        <div class="flower__grass__overlay"></div>
+      </div>
+    </div>
+    <div class="growing-grass">
+      <div class="flower__grass flower__grass--2">
+        <div class="flower__grass--top"></div>
+        <div class="flower__grass--bottom"></div>
+        <div class="flower__grass__leaf flower__grass__leaf--1"></div>
+        <div class="flower__grass__leaf flower__grass__leaf--2"></div>
+        <div class="flower__grass__leaf flower__grass__leaf--3"></div>
+        <div class="flower__grass__leaf flower__grass__leaf--4"></div>
+        <div class="flower__grass__leaf flower__grass__leaf--5"></div>
+        <div class="flower__grass__leaf flower__grass__leaf--6"></div>
+        <div class="flower__grass__overlay"></div>
+      </div>
+    </div>
+    <div class="growing-grass">
+      <div class="flower__grass flower__grass--3">
+        <div class="flower__grass--top"></div>
+        <div class="flower__grass--bottom"></div>
+        <div class="flower__grass__leaf flower__grass__leaf--1"></div>
+        <div class="flower__grass__leaf flower__grass__leaf--2"></div>
+        <div class="flower__grass__leaf flower__grass__leaf--3"></div>
+        <div class="flower__grass__leaf flower__grass__leaf--4"></div>
+        <div class="flower__grass__overlay"></div>
+      </div>
+    </div>
+    <div class="growing-grass">
+      <div class="flower__grass flower__grass--4">
+        <div class="flower__grass--top"></div>
+        <div class="flower__grass--bottom"></div>
+        <div class="flower__grass__leaf flower__grass__leaf--1"></div>
+        <div class="flower__grass__leaf flower__grass__leaf--2"></div>
+        <div class="flower__grass__leaf flower__grass__leaf--3"></div>
+        <div class="flower__grass__leaf flower__grass__leaf--4"></div>
+        <div class="flower__grass__overlay"></div>
+      </div>
+    </div>
+    <div class="growing-grass">
+      <div class="flower__grass flower__grass--5">
+        <div class="flower__grass--top"></div>
+        <div class="flower__grass--bottom"></div>
+        <div class="flower__grass__leaf flower__grass__leaf--1"></div>
+        <div class="flower__grass__leaf flower__grass__leaf--2"></div>
+        <div class="flower__grass__leaf flower__grass__leaf--3"></div>
+        <div class="flower__grass__leaf flower__grass__leaf--4"></div>
+        <div class="flower__grass__leaf flower__grass__leaf--5"></div>
+        <div class="flower__grass__overlay"></div>
+      </div>
+    </div>
+    <div class="growing-grass">
+      <div class="flower__grass flower__grass--6">
+        <div class="flower__grass--top"></div>
+        <div class="flower__grass--bottom"></div>
+        <div class="flower__grass__leaf flower__grass__leaf--1"></div>
+        <div class="flower__grass__leaf flower__grass__leaf--2"></div>
+        <div class="flower__grass__leaf flower__grass__leaf--3"></div>
+        <div class="flower__grass__leaf flower__grass__leaf--4"></div>
+        <div class="flower__grass__leaf flower__grass__leaf--5"></div>
+        <div class="flower__grass__leaf flower__grass__leaf--6"></div>
+        <div class="flower__grass__overlay"></div>
+      </div>
+    </div>
+    <div class="growing-grass">
+      <div class="flower__grass flower__grass--7">
+        <div class="flower__grass--top"></div>
+        <div class="flower__grass--bottom"></div>
+        <div class="flower__grass__leaf flower__grass__leaf--1"></div>
+        <div class="flower__grass__leaf flower__grass__leaf--2"></div>
+        <div class="flower__grass__leaf flower__grass__leaf--3"></div>
+        <div class="flower__grass__leaf flower__grass__leaf--4"></div>
+        <div class="flower__grass__overlay"></div>
+      </div>
+    </div>
+    <div class="growing-grass">
+      <div class="flower__grass flower__grass--8">
+        <div class="flower__grass--top"></div>
+        <div class="flower__grass--bottom"></div>
+        <div class="flower__grass__leaf flower__grass__leaf--1"></div>
+        <div class="flower__grass__leaf flower__grass__leaf--2"></div>
+        <div class="flower__grass__leaf flower__grass__leaf--3"></div>
+        <div class="flower__grass__leaf flower__grass__leaf--4"></div>
+        <div class="flower__grass__leaf flower__grass__leaf--5"></div>
+        <div class="flower__grass__overlay"></div>
+      </div>
+    </div>
+    <div class="growing-grass">
+      <div class="flower__grass flower__grass--9">
+        <div class="flower__grass--top"></div>
+        <div class="flower__grass--bottom"></div>
+        <div class="flower__grass__leaf flower__grass__leaf--1"></div>
+        <div class="flower__grass__leaf flower__grass__leaf--2"></div>
+        <div class="flower__grass__leaf flower__grass__leaf--3"></div>
+        <div class="flower__grass__overlay"></div>
+      </div>
+    </div>
+    <div class="growing-grass">
+      <div class="flower__grass flower__grass--10">
+        <div class="flower__grass--top"></div>
+        <div class="flower__grass--bottom"></div>
+        <div class="flower__grass__leaf flower__grass__leaf--1"></div>
+        <div class="flower__grass__leaf flower__grass__leaf--2"></div>
+        <div class="flower__grass__leaf flower__grass__leaf--3"></div>
+        <div class="flower__grass__overlay"></div>
+      </div>
+    </div>
+
+    <div class="letter-container">
+      <div class="envelope-wrapper">
+        <div class="envelope">
+          <div class="letter">
+            <div class="text">
+              <div class="letter-content">
+                <h1 class="letter-card-title" id="letterCardTitle">Uma lembranca para voce</h1>
+                <div class="letter-photo-wrap hidden" id="letterPhotoWrap">
+                  <div class="letter-photo-frame">
+                    <img class="letter-photo" id="letterPhoto" alt="Foto especial da carta">
+                  </div>
+                </div>
+                <p class="letter-card-message" id="letterCardMessage">Esta surpresa foi preparada com carinho para celebrar um momento importante.</p>
+                <p class="letter-card-signature" id="letterCardSignature">Com carinho</p>
+              </div>
+              <p>blá-blá-blá</p>
+              <p>bló-bló-bló-bló</p>
+            </div>
+          </div>
+        </div>
+        <div class="heart"></div>
+        <div class="tap-right"></div>
+        <div class="tap-left"></div>
+      </div>
+    </div>
+  </div>
+  <div class="morita-text" id="siteHeading">Uma surpresa especial</div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const audioOverlay = document.getElementById('audio-overlay');
+      const backgroundMusic = document.getElementById('backgroundMusic');
+
+      audioOverlay.addEventListener('click', () => {
+        audioOverlay.style.opacity = '0';
+        setTimeout(() => { 
+          audioOverlay.style.display = 'none'; 
+        }, 800);
+        
+        if (backgroundMusic && backgroundMusic.paused) {
+          backgroundMusic.play().then(() => {
+            console.log('Música tocando em:', backgroundMusic.currentTime);
+            document.getElementById('playIcon').style.display = 'none';
+            document.getElementById('pauseIcon').style.display = 'inline-block';
+          }).catch(error => {
+            console.error('Erro ao tocar áudio:', error.message);
+          });
+        }
+
+        document.body.classList.remove('not-loaded');
+
+        function createShootingStar() {
+          const star = document.createElement('div');
+          star.className = 'shooting-star';
+          star.style.top = Math.random() * 60 + '%';
+          star.style.left = '-10%';
+          star.style.animationDelay = '0s';
+          star.style.animationDuration = (Math.random() * 1.5 + 2) + 's';
+          
+          document.querySelector('.shooting-stars').appendChild(star);
+          
+          setTimeout(() => {
+            star.remove();
+          }, 4000);
+        }
+
+        const isMobile = window.innerWidth <= 768 || /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+        if (isMobile) {
+          setInterval(() => { 
+            if (Math.random() > 0.7) { 
+              createShootingStar();
+            }
+          }, Math.random() * 9000 + 5000);
+        }
+      });
+
+      function setupMusicControls() {
+        const music = document.getElementById("backgroundMusic");
+        const musicBtn = document.getElementById("musicBtn");
+        const playIcon = document.getElementById("playIcon");
+        const pauseIcon = document.getElementById("pauseIcon");
+        const volumeSlider = document.getElementById("volumeSlider");
+        const volumeControl = document.getElementById("volumeControl");
+
+        if (!music || !musicBtn || !volumeSlider || !volumeControl) {
+          console.error('Elementos de música ou controles não encontrados');
+          return;
+        }
+
+        music.volume = volumeSlider.value;
+        playIcon.style.display = 'inline-block';
+        pauseIcon.style.display = 'none';
+
+        function toggleMusic() {
+          if (music.paused) {
+            music.play().then(() => {
+              console.log('Música tocando em:', music.currentTime);
+              playIcon.style.display = 'none';
+              pauseIcon.style.display = 'inline-block';
+            }).catch(error => {
+              console.error('Erro ao tocar áudio:', error.message);
+              playIcon.style.display = 'inline-block';
+              pauseIcon.style.display = 'none';
+            });
+          } else {
+            music.pause();
+            console.log('Música pausada em:', music.currentTime);
+            playIcon.style.display = 'inline-block';
+            pauseIcon.style.display = 'none';
+          }
+        }
+
+        musicBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          toggleMusic();
+          if (!volumeControl.classList.contains('visible')) {
+            volumeControl.classList.add('visible');
+            clearTimeout(hideVolumeTimeout);
+            hideVolumeTimeout = setTimeout(() => volumeControl.classList.remove('visible'), 2000);
+          } else {
+            volumeControl.classList.remove('visible');
+          }
+        });
+
+        let hideVolumeTimeout = null;
+        volumeSlider.addEventListener('input', (e) => {
+          music.volume = e.target.value;
+          console.log('Volume definido para:', music.volume);
+          clearTimeout(hideVolumeTimeout);
+          volumeControl.classList.add('visible');
+        });
+
+        volumeSlider.addEventListener('change', () => {
+          hideVolumeTimeout = setTimeout(() => volumeControl.classList.remove('visible'), 2000);
+        });
+
+        volumeControl.addEventListener('mouseenter', () => clearTimeout(hideVolumeTimeout));
+        volumeControl.addEventListener('mouseleave', () => {
+          hideVolumeTimeout = setTimeout(() => volumeControl.classList.remove('visible'), 2000);
+        });
+
+        volumeSlider.addEventListener('touchstart', (e) => {
+          e.stopPropagation();
+          clearTimeout(hideVolumeTimeout);
+        });
+        volumeSlider.addEventListener('touchend', () => {
+          hideVolumeTimeout = setTimeout(() => volumeControl.classList.remove('visible'), 2000);
+        });
+
+        document.addEventListener('click', (e) => {
+          if (!volumeControl.contains(e.target) && !musicBtn.contains(e.target)) {
+            volumeControl.classList.remove('visible');
+            clearTimeout(hideVolumeTimeout);
+          }
+        });
+
+        music.addEventListener('loadeddata', () => console.log('Dados do áudio carregados'));
+        music.addEventListener('error', (e) => console.error('Erro de áudio:', e.message));
+        music.addEventListener('play', () => console.log('Evento de tocar música'));
+        music.addEventListener('pause', () => console.log('Evento de pausar música'));
+      }
+
+      setupMusicControls();
+
+      (function keepMusicControlZIndex() {
+        const mc = document.querySelector('.music-control');
+        if (!mc) return;
+
+        const overlay = document.getElementById('audio-overlay');
+        if (overlay) {
+          const ensureZ = () => {
+            const oz = parseInt(window.getComputedStyle(overlay).zIndex || 0, 10) || 0;
+            mc.style.zIndex = (oz - 1).toString();
+          };
+          ensureZ();
+
+          const obs = new MutationObserver(ensureZ);
+          obs.observe(overlay, { attributes: true, attributeFilter: ['style', 'class'] });
+
+          window.addEventListener('beforeunload', () => obs.disconnect());
+        }
+
+        window.addEventListener('resize', () => {
+          mc.style.position = 'fixed';
+          mc.style.transform = 'none';
+        });
+      })();
+
+      const envelope = document.querySelector('.envelope-wrapper');
+      const letter = document.querySelector('.letter');
+      let isAnimating = false;
+
+      document.addEventListener('click', (e) => {
+        if (isAnimating) return;
+
+        if (
+          e.target.matches(".envelope") || 
+          e.target.matches(".tap-right") || 
+          e.target.matches(".tap-left") || 
+          e.target.matches(".heart")
+        ) {
+          if (!letter.classList.contains('opened')) {
+            envelope.classList.add('flap');
+            isAnimating = true;
+
+            setTimeout(() => {
+              letter.classList.add('letter-opening');
+
+              setTimeout(() => {
+                letter.classList.remove('letter-opening');
+                letter.classList.add('opened');
+                document.body.classList.add('letter-open');
+                isAnimating = false;
+              }, 500);
+            }, 1000);
+          }
+        } else if (e.target.matches(".envelope *")) {
+          if (letter.classList.contains("opened")) {
+            document.body.classList.remove('letter-open');
+            envelope.classList.remove('flap');
+            isAnimating = true;
+
+            setTimeout(() => {
+              letter.classList.add("closing-letter");
+            }, 500);
+
+            setTimeout(() => {
+              letter.classList.remove("closing-letter");
+              letter.classList.remove("opened");
+              isAnimating = false;
+            }, 1000);
+          }
+        }
+      });
+    });
+  </script>
+  <script>
+    (() => {
+      const DEFAULT_THEME = "primavera";
+      const THEME_STYLES = {
+        primavera: {
+          "--bg-envelope-color": "#f3d6df",
+          "--heart-color": "#f38cb4",
+          "--envelope-tab": "#f7bfd1",
+          "--envelope-cover": "#efadc4",
+          "--shadow-color": "rgba(52, 28, 48, 0.22)",
+          "--txt-color": "#4a3951",
+          "--paper-bg": "#fff9f5",
+          "--paper-bg-top": "#fffaf7",
+          "--paper-bg-bottom": "#fbe9f1",
+          "--paper-panel-top": "rgba(255, 248, 251, 0.88)",
+          "--paper-panel-middle": "rgba(250, 229, 239, 0.56)",
+          "--paper-panel-bottom": "rgba(238, 188, 212, 0.16)",
+          "--paper-panel-accent": "rgba(194, 225, 210, 0.16)",
+          "--paper-edge": "rgba(239, 189, 213, 0.32)",
+          "--paper-border": "rgba(111, 84, 101, 0.42)",
+          "--letter-title-color": "#c85b87",
+          "--letter-title-gradient": "linear-gradient(90deg, #fff8f1 0%, #ffc8de 32%, #ea90b3 62%, #b9e0cb 100%)",
+          "--signature-color": "#8f5e76",
+          "--page-background-solid": "#6b5f6f",
+          "--page-background": "linear-gradient(180deg, #744a61 0%, #6d637e 48%, #5b8672 100%)",
+          "--page-background-overlay": "radial-gradient(circle at top, rgba(255, 185, 214, 0.16) 0%, rgba(255, 185, 214, 0) 40%)",
+          "--overlay-bg": "linear-gradient(135deg, rgba(99, 49, 78, 0.94), rgba(54, 95, 83, 0.9))",
+          "--overlay-text-color": "#ffffff",
+          "--overlay-accent": "rgba(255, 221, 232, 0.96)",
+          "--overlay-title-gradient": "linear-gradient(90deg, #fff7ef 0%, #ffc4dc 34%, #f39abb 64%, #c6e7d4 100%)",
+          "--overlay-title-shadow": "rgba(170, 104, 146, 0.28)",
+          "--overlay-glow-soft": "rgba(255, 212, 227, 0.42)",
+          "--overlay-glow-mid": "rgba(233, 146, 190, 0.34)",
+          "--overlay-glow-strong": "rgba(201, 234, 216, 0.26)",
+          "--site-title-color": "#fffafc",
+          "--site-title-gradient": "linear-gradient(90deg, #fff8f1 0%, #ffcade 32%, #eb92b4 62%, #b8e0cb 100%)",
+          "--site-title-shadow": "0 0 10px rgba(255, 214, 228, 0.32), 0 0 22px rgba(178, 109, 150, 0.2)",
+          "--theme-title-shadow": "rgba(157, 98, 135, 0.32)",
+          "--overlay-heart-filter": "hue-rotate(-12deg) saturate(1.08) brightness(1.03)",
+          "--control-bg": "rgba(255, 255, 255, 0.16)",
+          "--control-border": "rgba(255, 255, 255, 0.32)",
+          "--control-text": "#ffffff",
+          "--star-color": "rgba(255, 238, 245, 0.86)",
+          "--star-glow": "rgba(255, 214, 228, 0.52)",
+          "--moon-color": "#fff2f7",
+          "--moon-glow": "rgba(255, 221, 235, 0.44)",
+          "--shooting-star-color": "#fff2f8",
+          "--shooting-star-tail": "rgba(255, 225, 237, 0.96)",
+          "--petal-highlight": "#ffe7f2",
+          "--petal-mid": "#f3b3d1",
+          "--petal-deep": "#ca6d9d",
+          "--petal-shadow": "#8d4d71",
+          "--petal-core": "#4c2d49",
+          "--petal-border": "#9d6281",
+          "--petal-glow": "#ecbad4",
+          "--petal-shine": "#ffe4f0",
+          "--petal-inner-shadow": "rgba(116, 61, 91, 0.42)",
+          "--petal-inner-highlight": "#fff1f8",
+          "--petal-border-inner": "#b17393",
+          "--petal-center-start": "#7c4862",
+          "--petal-center-end": "#2b1b2b",
+          "--petal-center-glow": "rgba(228, 170, 199, 0.48)",
+          "--stem-dark": "#517540",
+          "--stem-mid": "#78a85e",
+          "--stem-light": "#b5d78f",
+          "--stem-shadow": "rgba(48, 35, 25, 0.28)",
+          "--stem-highlight": "rgba(255, 255, 255, 0.18)",
+          "--grass-color": "#78a85d",
+          "--grass-overlay": "rgba(63, 88, 68, 0.16)",
+          "--bouquet-backdrop": "radial-gradient(circle at center, rgba(255, 185, 214, 0.28) 0%, rgba(203, 233, 211, 0.18) 44%, rgba(91, 122, 108, 0) 76%)",
+          "--wrapper-filter": "hue-rotate(-8deg) saturate(1.02) brightness(1.03)",
+          "--photo-shadow": "drop-shadow(0 28px 28px rgba(132, 78, 108, 0.25)) drop-shadow(0 12px 18px rgba(56, 40, 63, 0.16))"
+        },
+        verao: {
+          "--bg-envelope-color": "#f9d8a6",
+          "--heart-color": "#ff8f5a",
+          "--envelope-tab": "#ffd07a",
+          "--envelope-cover": "#f4b96b",
+          "--shadow-color": "rgba(120, 66, 29, 0.24)",
+          "--txt-color": "#5b3b27",
+          "--paper-bg": "#fff8ed",
+          "--paper-bg-top": "#fff9e9",
+          "--paper-bg-bottom": "#ffe9c7",
+          "--paper-panel-top": "rgba(255, 249, 232, 0.88)",
+          "--paper-panel-middle": "rgba(255, 233, 184, 0.54)",
+          "--paper-panel-bottom": "rgba(255, 189, 103, 0.16)",
+          "--paper-panel-accent": "rgba(150, 222, 247, 0.16)",
+          "--paper-edge": "rgba(255, 204, 124, 0.34)",
+          "--paper-border": "rgba(166, 110, 71, 0.44)",
+          "--letter-title-color": "#e77a2d",
+          "--letter-title-gradient": "linear-gradient(90deg, #fff8db 0%, #ffd06f 30%, #ff9752 62%, #8edcff 100%)",
+          "--signature-color": "#b86134",
+          "--page-background-solid": "#7f6545",
+          "--page-background": "linear-gradient(180deg, #8f6132 0%, #c57f42 42%, #4f8096 100%)",
+          "--page-background-overlay": "radial-gradient(circle at top, rgba(255, 213, 112, 0.18) 0%, rgba(255, 213, 112, 0) 40%)",
+          "--overlay-bg": "linear-gradient(135deg, rgba(215, 104, 43, 0.94), rgba(34, 126, 170, 0.88))",
+          "--overlay-text-color": "#fffdf7",
+          "--overlay-accent": "rgba(255, 246, 182, 0.96)",
+          "--overlay-title-gradient": "linear-gradient(90deg, #fff7cb 0%, #ffd774 32%, #ff9f58 65%, #95e3ff 100%)",
+          "--overlay-title-shadow": "rgba(194, 124, 63, 0.26)",
+          "--overlay-glow-soft": "rgba(255, 241, 188, 0.4)",
+          "--overlay-glow-mid": "rgba(255, 175, 97, 0.34)",
+          "--overlay-glow-strong": "rgba(159, 227, 255, 0.24)",
+          "--site-title-color": "#fffef5",
+          "--site-title-gradient": "linear-gradient(90deg, #fff8d9 0%, #ffcf6d 30%, #ff9551 62%, #8ddcff 100%)",
+          "--site-title-shadow": "0 0 10px rgba(255, 232, 170, 0.28), 0 0 22px rgba(231, 138, 70, 0.22)",
+          "--theme-title-shadow": "rgba(189, 122, 67, 0.3)",
+          "--overlay-heart-filter": "hue-rotate(112deg) saturate(1.45) brightness(1.16)",
+          "--control-bg": "rgba(255, 255, 255, 0.18)",
+          "--control-border": "rgba(255, 248, 225, 0.34)",
+          "--control-text": "#fffef6",
+          "--star-color": "rgba(255, 244, 202, 0.84)",
+          "--star-glow": "rgba(255, 210, 132, 0.48)",
+          "--moon-color": "#fff2c8",
+          "--moon-glow": "rgba(255, 221, 154, 0.42)",
+          "--shooting-star-color": "#fff3cf",
+          "--shooting-star-tail": "rgba(255, 221, 150, 0.92)",
+          "--petal-highlight": "#fff0c9",
+          "--petal-mid": "#ffc36f",
+          "--petal-deep": "#ff8d5b",
+          "--petal-shadow": "#cc632f",
+          "--petal-core": "#6a391d",
+          "--petal-border": "#d47949",
+          "--petal-glow": "#ffc583",
+          "--petal-shine": "#ffe4a5",
+          "--petal-inner-shadow": "rgba(158, 87, 43, 0.42)",
+          "--petal-inner-highlight": "#fff7dc",
+          "--petal-border-inner": "#e09156",
+          "--petal-center-start": "#a75a26",
+          "--petal-center-end": "#472510",
+          "--petal-center-glow": "rgba(255, 198, 118, 0.44)",
+          "--stem-dark": "#4d7733",
+          "--stem-mid": "#78a74b",
+          "--stem-light": "#c7df89",
+          "--stem-shadow": "rgba(73, 52, 22, 0.28)",
+          "--stem-highlight": "rgba(255, 255, 255, 0.18)",
+          "--grass-color": "#7fb364",
+          "--grass-overlay": "rgba(81, 102, 58, 0.14)",
+          "--bouquet-backdrop": "radial-gradient(circle at center, rgba(255, 208, 111, 0.28) 0%, rgba(150, 222, 247, 0.18) 42%, rgba(79, 128, 150, 0) 76%)",
+          "--wrapper-filter": "hue-rotate(88deg) saturate(1.08) brightness(1.06)",
+          "--photo-shadow": "drop-shadow(0 30px 30px rgba(188, 104, 43, 0.26)) drop-shadow(0 12px 18px rgba(82, 60, 38, 0.16))"
+        },
+        outono: {
+          "--bg-envelope-color": "#d6a67a",
+          "--heart-color": "#af5a2e",
+          "--envelope-tab": "#c88a56",
+          "--envelope-cover": "#b06d3f",
+          "--shadow-color": "rgba(74, 40, 18, 0.24)",
+          "--txt-color": "#4d3423",
+          "--paper-bg": "#fff5ea",
+          "--paper-bg-top": "#fff5e8",
+          "--paper-bg-bottom": "#efd5b8",
+          "--paper-panel-top": "rgba(255, 246, 233, 0.88)",
+          "--paper-panel-middle": "rgba(243, 222, 194, 0.54)",
+          "--paper-panel-bottom": "rgba(206, 134, 80, 0.16)",
+          "--paper-panel-accent": "rgba(228, 171, 104, 0.16)",
+          "--paper-edge": "rgba(201, 142, 87, 0.32)",
+          "--paper-border": "rgba(139, 82, 44, 0.45)",
+          "--letter-title-color": "#9a4d22",
+          "--letter-title-gradient": "linear-gradient(90deg, #fff1db 0%, #e4ab68 32%, #c97b40 62%, #8f522b 100%)",
+          "--signature-color": "#7e4527",
+          "--page-background-solid": "#5a4334",
+          "--page-background": "linear-gradient(180deg, #5f3828 0%, #986137 44%, #734728 100%)",
+          "--page-background-overlay": "radial-gradient(circle at top, rgba(226, 171, 104, 0.16) 0%, rgba(226, 171, 104, 0) 40%)",
+          "--overlay-bg": "linear-gradient(135deg, rgba(121, 69, 37, 0.94), rgba(65, 41, 24, 0.9))",
+          "--overlay-text-color": "#fff7ef",
+          "--overlay-accent": "rgba(255, 223, 167, 0.96)",
+          "--overlay-title-gradient": "linear-gradient(90deg, #fff0d8 0%, #e8b16f 34%, #c97f42 66%, #8f4f2b 100%)",
+          "--overlay-title-shadow": "rgba(119, 75, 41, 0.26)",
+          "--overlay-glow-soft": "rgba(255, 223, 171, 0.38)",
+          "--overlay-glow-mid": "rgba(214, 131, 71, 0.34)",
+          "--overlay-glow-strong": "rgba(187, 114, 58, 0.24)",
+          "--site-title-color": "#fff8ef",
+          "--site-title-gradient": "linear-gradient(90deg, #fff2dd 0%, #e4a96a 32%, #c8793f 64%, #8d522c 100%)",
+          "--site-title-shadow": "0 0 10px rgba(255, 229, 194, 0.24), 0 0 22px rgba(149, 92, 47, 0.22)",
+          "--theme-title-shadow": "rgba(125, 80, 46, 0.3)",
+          "--overlay-heart-filter": "hue-rotate(96deg) saturate(1.1) sepia(0.18) brightness(0.96)",
+          "--control-bg": "rgba(255, 247, 237, 0.16)",
+          "--control-border": "rgba(255, 227, 198, 0.28)",
+          "--control-text": "#fff9f3",
+          "--star-color": "rgba(255, 232, 203, 0.82)",
+          "--star-glow": "rgba(215, 145, 89, 0.44)",
+          "--moon-color": "#ffe8cb",
+          "--moon-glow": "rgba(214, 146, 89, 0.36)",
+          "--shooting-star-color": "#ffe1be",
+          "--shooting-star-tail": "rgba(231, 173, 117, 0.88)",
+          "--petal-highlight": "#ffe3c4",
+          "--petal-mid": "#d99861",
+          "--petal-deep": "#ab6134",
+          "--petal-shadow": "#704021",
+          "--petal-core": "#381e13",
+          "--petal-border": "#95562f",
+          "--petal-glow": "#dca170",
+          "--petal-shine": "#ffe5c8",
+          "--petal-inner-shadow": "rgba(104, 60, 30, 0.44)",
+          "--petal-inner-highlight": "#fff0de",
+          "--petal-border-inner": "#b77443",
+          "--petal-center-start": "#88471f",
+          "--petal-center-end": "#341d11",
+          "--petal-center-glow": "rgba(224, 160, 99, 0.38)",
+          "--stem-dark": "#536131",
+          "--stem-mid": "#7d8e47",
+          "--stem-light": "#c5b96c",
+          "--stem-shadow": "rgba(57, 38, 18, 0.26)",
+          "--stem-highlight": "rgba(255, 248, 232, 0.14)",
+          "--grass-color": "#83964f",
+          "--grass-overlay": "rgba(78, 72, 44, 0.14)",
+          "--bouquet-backdrop": "radial-gradient(circle at center, rgba(228, 171, 104, 0.24) 0%, rgba(143, 82, 43, 0.18) 42%, rgba(90, 67, 52, 0) 76%)",
+          "--wrapper-filter": "hue-rotate(46deg) saturate(0.94) brightness(0.96)",
+          "--photo-shadow": "drop-shadow(0 30px 30px rgba(113, 62, 31, 0.28)) drop-shadow(0 12px 18px rgba(56, 37, 22, 0.18))"
+        },
+        inverno: {
+          "--bg-envelope-color": "#d9e7f4",
+          "--heart-color": "#86b7e7",
+          "--envelope-tab": "#c5d9ef",
+          "--envelope-cover": "#b5cce8",
+          "--shadow-color": "rgba(32, 59, 92, 0.22)",
+          "--txt-color": "#28445f",
+          "--paper-bg": "#f8fbff",
+          "--paper-bg-top": "#fbfdff",
+          "--paper-bg-bottom": "#e6f0fb",
+          "--paper-panel-top": "rgba(248, 252, 255, 0.9)",
+          "--paper-panel-middle": "rgba(224, 237, 249, 0.52)",
+          "--paper-panel-bottom": "rgba(154, 189, 223, 0.15)",
+          "--paper-panel-accent": "rgba(184, 213, 243, 0.16)",
+          "--paper-edge": "rgba(175, 203, 233, 0.34)",
+          "--paper-border": "rgba(96, 128, 160, 0.42)",
+          "--letter-title-color": "#4a7aaa",
+          "--letter-title-gradient": "linear-gradient(90deg, #f8fdff 0%, #d6e5ff 30%, #9cbff0 60%, #6d97db 100%)",
+          "--signature-color": "#3d628c",
+          "--page-background-solid": "#445c79",
+          "--page-background": "linear-gradient(180deg, #304968 0%, #55769f 44%, #7696bb 100%)",
+          "--page-background-overlay": "radial-gradient(circle at top, rgba(184, 213, 243, 0.14) 0%, rgba(184, 213, 243, 0) 42%)",
+          "--overlay-bg": "linear-gradient(135deg, rgba(42, 70, 110, 0.95), rgba(16, 30, 55, 0.9))",
+          "--overlay-text-color": "#f7fbff",
+          "--overlay-accent": "rgba(225, 241, 255, 0.98)",
+          "--overlay-title-gradient": "linear-gradient(90deg, #f8fdff 0%, #dfeaff 30%, #9fc4f3 62%, #6a94de 100%)",
+          "--overlay-title-shadow": "rgba(93, 124, 166, 0.24)",
+          "--overlay-glow-soft": "rgba(223, 239, 255, 0.38)",
+          "--overlay-glow-mid": "rgba(160, 198, 235, 0.3)",
+          "--overlay-glow-strong": "rgba(126, 167, 216, 0.22)",
+          "--site-title-color": "#f8fcff",
+          "--site-title-gradient": "linear-gradient(90deg, #f9fdff 0%, #d6e5ff 30%, #99bff0 60%, #6e97db 100%)",
+          "--site-title-shadow": "0 0 10px rgba(226, 239, 255, 0.28), 0 0 22px rgba(128, 166, 209, 0.18)",
+          "--theme-title-shadow": "rgba(91, 122, 166, 0.28)",
+          "--overlay-heart-filter": "hue-rotate(-62deg) saturate(0.82) brightness(1.18)",
+          "--control-bg": "rgba(255, 255, 255, 0.14)",
+          "--control-border": "rgba(223, 239, 255, 0.34)",
+          "--control-text": "#f7fbff",
+          "--star-color": "rgba(231, 243, 255, 0.84)",
+          "--star-glow": "rgba(179, 209, 238, 0.42)",
+          "--moon-color": "#eef7ff",
+          "--moon-glow": "rgba(186, 216, 245, 0.32)",
+          "--shooting-star-color": "#eff7ff",
+          "--shooting-star-tail": "rgba(193, 223, 251, 0.9)",
+          "--petal-highlight": "#f2f7ff",
+          "--petal-mid": "#b7d4f1",
+          "--petal-deep": "#7098d3",
+          "--petal-shadow": "#456998",
+          "--petal-core": "#213b62",
+          "--petal-border": "#658fbe",
+          "--petal-glow": "#bfd8f1",
+          "--petal-shine": "#eef7ff",
+          "--petal-inner-shadow": "rgba(62, 96, 144, 0.42)",
+          "--petal-inner-highlight": "#f8fbff",
+          "--petal-border-inner": "#8cb0d9",
+          "--petal-center-start": "#567cab",
+          "--petal-center-end": "#203654",
+          "--petal-center-glow": "rgba(173, 204, 236, 0.4)",
+          "--stem-dark": "#496787",
+          "--stem-mid": "#6f93b8",
+          "--stem-light": "#b5d1ea",
+          "--stem-shadow": "rgba(33, 55, 81, 0.26)",
+          "--stem-highlight": "rgba(244, 249, 255, 0.16)",
+          "--grass-color": "#6f97ba",
+          "--grass-overlay": "rgba(56, 81, 110, 0.12)",
+          "--bouquet-backdrop": "radial-gradient(circle at center, rgba(184, 213, 243, 0.22) 0%, rgba(111, 151, 186, 0.18) 44%, rgba(68, 92, 121, 0) 78%)",
+          "--wrapper-filter": "hue-rotate(134deg) saturate(0.78) brightness(1.08)",
+          "--photo-shadow": "drop-shadow(0 30px 30px rgba(61, 98, 140, 0.24)) drop-shadow(0 12px 18px rgba(28, 49, 74, 0.16))"
+        }
+      };
+      const DEFAULTS = {
+        openText: "Uma surpresa especial",
+        recipient: "Uma lembranca para voce",
+        message: "Esta surpresa foi preparada com carinho para celebrar um momento importante.",
+        sender: "",
+        accent: "Toque para abrir e aproveitar esta carta preparada com carinho.",
+        music: "",
+        photo: "",
+        theme: DEFAULT_THEME
+      };
+
+      function safeDecode(value) {
+        try {
+          return decodeURIComponent(value);
+        } catch {
+          return value;
+        }
+      }
+
+      function normalizeTheme(value) {
+        const normalized = (value || "").trim().toLowerCase();
+        const aliases = {
+          primavera: "primavera",
+          verao: "verao",
+          "verão": "verao",
+          outono: "outono",
+          inverno: "inverno"
+        };
+        const resolved = aliases[normalized] || DEFAULT_THEME;
+        return THEME_STYLES[resolved] ? resolved : DEFAULT_THEME;
+      }
+
+      function parseIncomingConfig() {
+        let params = new URLSearchParams(location.search);
+        const hashGift = location.hash.startsWith("#gift?");
+
+        if (!params.toString() && hashGift) {
+          params = new URLSearchParams(location.hash.replace("#gift?", ""));
+        }
+
+        return {
+          openText: safeDecode(params.get("openText") || DEFAULTS.openText),
+          recipient: safeDecode(params.get("recipient") || DEFAULTS.recipient),
+          message: safeDecode(params.get("message") || DEFAULTS.message),
+          sender: safeDecode(params.get("sender") || DEFAULTS.sender),
+          accent: safeDecode(params.get("accent") || DEFAULTS.accent),
+          music: safeDecode(params.get("music") || DEFAULTS.music),
+          photo: safeDecode(params.get("photo") || DEFAULTS.photo),
+          theme: normalizeTheme(safeDecode(params.get("theme") || DEFAULTS.theme)),
+          preview: params.get("preview") === "1",
+          returnUrl: safeDecode(params.get("returnUrl") || "")
+        };
+      }
+
+      function resolveMusicSource(value) {
+        if (!value) return "";
+        if (/^(https?:|data:|blob:|file:)/i.test(value)) return value;
+        if (value.startsWith("../") || value.startsWith("./") || value.startsWith("/")) return value;
+        if (value.startsWith("musica/")) return `../${value}`;
+        return value;
+      }
+
+      function applyTheme(theme) {
+        const resolvedTheme = normalizeTheme(theme);
+        const themeStyles = THEME_STYLES[resolvedTheme];
+        document.documentElement.dataset.theme = resolvedTheme;
+
+        Object.entries(themeStyles).forEach(([property, value]) => {
+          document.documentElement.style.setProperty(property, value);
+        });
+
+        return resolvedTheme;
+      }
+
+      function applyConfig(config) {
+        const siteHeading = document.getElementById("siteHeading");
+        const letterTitle = document.getElementById("letterCardTitle");
+        const letterMessage = document.getElementById("letterCardMessage");
+        const letterSignature = document.getElementById("letterCardSignature");
+        const letterPhotoWrap = document.getElementById("letterPhotoWrap");
+        const letterPhoto = document.getElementById("letterPhoto");
+        const backgroundMusic = document.getElementById("backgroundMusic");
+        const musicControl = document.querySelector(".music-control");
+        const visibleTitle = config.openText || DEFAULTS.openText;
+        const visibleLetterTitle = config.recipient || DEFAULTS.recipient;
+        const visibleMessage = config.message || DEFAULTS.message;
+        const visibleSignature = config.sender || DEFAULTS.sender;
+        const resolvedMusic = resolveMusicSource(config.music);
+        applyTheme(config.theme);
+
+        document.title = visibleTitle;
+        if (siteHeading) siteHeading.textContent = visibleTitle;
+        if (letterTitle) letterTitle.textContent = visibleLetterTitle;
+        if (letterMessage) letterMessage.textContent = visibleMessage;
+
+        if (letterSignature) {
+          letterSignature.textContent = visibleSignature;
+          letterSignature.classList.toggle("hidden", !visibleSignature);
+        }
+
+        if (letterPhotoWrap && letterPhoto) {
+          if (config.photo) {
+            letterPhoto.src = config.photo;
+            letterPhoto.alt = `Foto da carta ${visibleLetterTitle}`;
+            letterPhotoWrap.classList.remove("hidden");
+          } else {
+            letterPhoto.removeAttribute("src");
+            letterPhotoWrap.classList.add("hidden");
+          }
+        }
+
+        if (backgroundMusic) {
+          if (resolvedMusic) {
+            backgroundMusic.src = resolvedMusic;
+          } else {
+            backgroundMusic.removeAttribute("src");
+          }
+          backgroundMusic.load();
+        }
+
+        if (musicControl) {
+          musicControl.classList.toggle("hidden", !resolvedMusic);
+        }
+      }
+
+      function setupPreviewReturn(config) {
+        const previewReturnBtn = document.getElementById("previewReturnBtn");
+
+        if (!previewReturnBtn || !config.preview || !config.returnUrl) {
+          return;
+        }
+
+        previewReturnBtn.classList.remove("hidden");
+        history.pushState({ previewLock: true }, "", location.href);
+        window.addEventListener("popstate", () => {
+          history.pushState({ previewLock: true }, "", location.href);
+        });
+
+        previewReturnBtn.addEventListener("click", () => {
+          if (history.length > 2) {
+            history.go(-2);
+            return;
+          }
+          location.replace(config.returnUrl);
+        });
+      }
+
+      const config = parseIncomingConfig();
+      applyConfig(config);
+      setupPreviewReturn(config);
+    })();
+  </script>
+  <script>
+    document.addEventListener("contextmenu", function(e) {
+        e.preventDefault();
+    });
+
+    document.addEventListener("keydown", function(e) {
+        if (
+            e.key === "F12" ||
+            (e.ctrlKey && e.shiftKey && ["i", "j", "c", "s"].includes(e.key.toLowerCase())) ||
+            (e.ctrlKey && e.key.toLowerCase() === "u") ||
+            (e.metaKey && e.altKey && e.key.toLowerCase() === "i") || // Cmd + Opt + I
+            (e.metaKey && e.key.toLowerCase() === "u") // Cmd + U
+        ) {
+            e.preventDefault();
+            return false;
+        }
+    });
+
+    console.log = () => {};
+    console.debug = () => {};
+    console.warn = () => {};
+    console.info = () => {};
+
+    setInterval(() => {
+        const before = new Date().getTime();
+        debugger;
+        const after = new Date().getTime();
+        if (after - before > 100) {
+            document.body.innerHTML =
+                '<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><title>Aviso</title><style>body { background: #f8c9d4; color: #ff477e; font-family: Nunito, sans-serif; text-align: center; padding: 50px; }</style></head><body><h1>🔒 Não abra as ferramentas de desenvolvedor!</h1><p>Esta página é especial e privada. Aproveite como ela está. 💜</p><img src="/es/PagFloresMoradas/assets/cora.svg" alt="Coração" style="width: 100px; margin: 20px auto;"></body></html>';
+        }
+    }, 1000);
+
+    (function() {
+        const element = new Image();
+        Object.defineProperty(element, 'id', {
+            get: function() {
+                document.body.innerHTML =
+                    '<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><title>Aviso</title><style>body { background: #f8c9d4; color: #ff477e; font-family: Nunito, sans-serif; text-align: center; padding: 50px; }</style></head><body><h1>⚠️ Não abra o console!</h1><p>Este é um segredo entre nós. 😘</p><img src="/es/PagFloresMoradas/assets/cora.svg" alt="Coração" style="width: 100px; margin: 20px auto;"></body></html>';
+                throw new Error("Console bloqueado");
+            }
+        });
+
+        setInterval(() => {
+            console.log(element);
+            console.clear();
+        }, 2000);
+    })();
+
+    document.addEventListener('dragstart', function(e) {
+        e.preventDefault();
+    });
+
+    document.addEventListener('keydown', function(e) {
+        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'a') {
+            e.preventDefault();
+        }
+    });
+  </script>
+
+</body></html>
