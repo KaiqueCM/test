@@ -1,0 +1,1280 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Presente Digital</title>
+  <meta name="description" content="Presente digital personalizável para qualquer ocasião" />
+  <style>
+    :root {
+      --bg-1: #0c1c2a;
+      --bg-2: #153849;
+      --bg-3: #355e65;
+      --pink: #f2b15f;
+      --pink-2: #d7f0e8;
+      --gold: #ffe1a3;
+      --white: #fbfaf5;
+      --muted: #d7ddd6;
+      --card: rgba(255, 255, 255, 0.12);
+      --border: rgba(255, 255, 255, 0.18);
+      --shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      min-height: 100%;
+      font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+      background:
+        radial-gradient(circle at top, rgba(140, 205, 189, 0.14), transparent 30%),
+        linear-gradient(180deg, var(--bg-1), var(--bg-2) 50%, var(--bg-3));
+      color: var(--white);
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 15% 20%, rgba(255, 225, 163, 0.10), transparent 18%),
+        radial-gradient(circle at 85% 12%, rgba(140, 205, 189, 0.10), transparent 20%),
+        radial-gradient(circle at 50% 75%, rgba(255, 255, 255, 0.04), transparent 22%);
+      z-index: 0;
+    }
+
+    .stars, .hearts {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: white;
+      border-radius: 50%;
+      box-shadow: 0 0 8px rgba(255,255,255,.9);
+      animation: twinkle 3.5s infinite ease-in-out;
+      opacity: .7;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { transform: scale(1); opacity: .25; }
+      50% { transform: scale(1.9); opacity: 1; }
+    }
+
+    .heart {
+      position: absolute;
+      font-size: 16px;
+      opacity: 0;
+      animation: floatUp linear infinite;
+      filter: drop-shadow(0 0 10px rgba(242, 177, 95, .28));
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(10vh) translateX(0) scale(.8); opacity: 0; }
+      12% { opacity: .65; }
+      85% { opacity: .45; }
+      100% { transform: translateY(-110vh) translateX(24px) scale(1.2); opacity: 0; }
+    }
+
+    .shell {
+      position: relative;
+      z-index: 1;
+      width: min(1100px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 26px 0 48px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 22px;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--pink-2);
+      font-size: 12px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: var(--muted);
+      font-size: 13px;
+      backdrop-filter: blur(12px);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+    }
+
+    .view {
+      display: none;
+      animation: fadeIn .35s ease;
+    }
+
+    .view.is-active { display: block; }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
+    }
+
+    .panel {
+      padding: 24px;
+    }
+
+    .intro-panel,
+    .stage-panel {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .title {
+      margin: 0 0 10px;
+      font-family: Georgia, "Times New Roman", serif;
+      line-height: 1.05;
+      font-size: clamp(34px, 6vw, 58px);
+      text-wrap: balance;
+      overflow-wrap: anywhere;
+    }
+
+    .subtitle {
+      margin: 0;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.65;
+      max-width: 58ch;
+    }
+
+    .hero {
+      padding: 30px;
+      overflow: hidden;
+      position: relative;
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto -100px -120px auto;
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(140,205,189,.18), rgba(140,205,189,0));
+      pointer-events: none;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 18px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(140, 205, 189, .16);
+      border: 1px solid rgba(215, 240, 232, .24);
+      color: var(--pink-2);
+      width: fit-content;
+      font-size: 13px;
+      letter-spacing: .04em;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 24px;
+      flex-wrap: wrap;
+    }
+
+    .single-stage {
+      width: min(860px, 100%);
+      margin: 0 auto;
+    }
+
+    .hero-centered {
+      min-height: 560px;
+      align-items: center;
+      text-align: center;
+    }
+
+    .hero-centered .hero-badge,
+    .form-header-centered .hero-badge {
+      margin-inline: auto;
+    }
+
+    .hero-centered .subtitle,
+    .form-note-centered {
+      max-width: 58ch;
+      margin-inline: auto;
+    }
+
+    .hero-actions-centered,
+    .actions-centered {
+      justify-content: center;
+    }
+
+    .hero-actions-centered .btn-primary {
+      min-width: 220px;
+    }
+
+    .panel-centered {
+      padding: clamp(22px, 4vw, 34px);
+    }
+
+    .form-header-centered {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .form-note-centered {
+      font-size: 15px;
+      line-height: 1.65;
+    }
+
+    button, .button-link {
+      appearance: none;
+      border: 0;
+      cursor: pointer;
+      border-radius: 16px;
+      padding: 14px 18px;
+      font-weight: 700;
+      transition: transform .18s ease, opacity .18s ease, background .18s ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 14px;
+    }
+
+    button:hover, .button-link:hover { transform: translateY(-1px); }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--pink), #ffd796);
+      color: #3e2913;
+      box-shadow: 0 12px 30px rgba(242, 177, 95, .25);
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,.08);
+      color: var(--white);
+      border: 1px solid rgba(255,255,255,.14);
+    }
+
+    .form-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+
+    .form-title {
+      margin: 0;
+      font-size: 22px;
+    }
+
+    .form-note {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 20px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .field.full { grid-column: 1 / -1; }
+
+    label {
+      font-size: 13px;
+      color: var(--pink-2);
+      font-weight: 600;
+      letter-spacing: .02em;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 14px 14px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.08);
+      color: var(--white);
+      outline: none;
+      font: inherit;
+    }
+
+    input::placeholder, textarea::placeholder { color: rgba(255,255,255,.42); }
+
+    textarea {
+      min-height: 132px;
+      resize: vertical;
+      line-height: 1.6;
+    }
+
+    .small {
+      color: rgba(255,255,255,.6);
+      font-size: 12px;
+      line-height: 1.5;
+      margin-top: 6px;
+    }
+
+    .actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+    }
+
+    .step-list {
+      display: grid;
+      gap: 14px;
+      margin-top: 22px;
+    }
+
+    .step-item {
+      display: grid;
+      grid-template-columns: 54px 1fr;
+      gap: 14px;
+      align-items: start;
+      padding: 16px;
+      border-radius: 22px;
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.10);
+    }
+
+    .step-number {
+      width: 54px;
+      height: 54px;
+      border-radius: 18px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, rgba(140,205,189,.24), rgba(255,225,163,.18));
+      border: 1px solid rgba(255,255,255,.12);
+      color: var(--gold);
+      font-weight: 700;
+      font-size: 18px;
+    }
+
+    .step-item strong {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 16px;
+    }
+
+    .step-item p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.65;
+      font-size: 14px;
+    }
+
+    .section-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 18px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.12);
+      color: var(--pink-2);
+      width: fit-content;
+      font-size: 13px;
+      letter-spacing: .04em;
+    }
+
+    .section-title {
+      margin: 0 0 10px;
+      font-size: clamp(28px, 4vw, 40px);
+      font-family: Georgia, serif;
+      line-height: 1.08;
+      text-wrap: balance;
+      overflow-wrap: anywhere;
+    }
+
+    .section-copy {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 15px;
+    }
+
+    .info-stack {
+      display: grid;
+      gap: 14px;
+      margin-top: 22px;
+    }
+
+    .info-card {
+      padding: 16px 18px;
+      border-radius: 22px;
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.10);
+    }
+
+    .info-card strong {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--white);
+    }
+
+    .info-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 14px;
+    }
+
+    .preview-wrap {
+      padding: 18px;
+    }
+
+    .preview-toolbar {
+      display: flex;
+      justify-content: flex-start;
+      margin-bottom: 12px;
+    }
+
+    .gift {
+      position: relative;
+      padding: 22px;
+      min-height: 720px;
+      overflow: hidden;
+      display: none;
+    }
+
+    .gift.show { display: block; }
+
+    .cover {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: 22px;
+      background:
+        radial-gradient(circle at top, rgba(255,255,255,.08), transparent 40%),
+        linear-gradient(180deg, rgba(11, 11, 25, 0.45), rgba(11,11,25,.72));
+      z-index: 3;
+      transition: opacity .8s ease, visibility .8s ease;
+    }
+
+    .cover.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .cover-card {
+      max-width: 520px;
+      text-align: center;
+      padding: 30px;
+      border-radius: 28px;
+      background: rgba(255,255,255,.10);
+      border: 1px solid rgba(255,255,255,.16);
+      backdrop-filter: blur(16px);
+      box-shadow: var(--shadow);
+    }
+
+    .cover-card h2 {
+      margin: 0 0 12px;
+      font-size: clamp(28px, 5vw, 42px);
+      font-family: Georgia, serif;
+    }
+
+    .cover-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 15px;
+    }
+
+    .cover-card .actions {
+      justify-content: center;
+      margin-top: 22px;
+    }
+
+    .moon {
+      position: absolute;
+      right: -30px;
+      top: -10px;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 35% 35%, #fff7d7, #ffe3a2 45%, #f7c76c 75%, rgba(247,199,108,.6) 100%);
+      opacity: .95;
+      filter: drop-shadow(0 0 24px rgba(255, 225, 163, .25));
+      box-shadow: inset -22px -18px 0 rgba(241, 187, 91, .15);
+    }
+
+    .moon::after {
+      content: "";
+      position: absolute;
+      inset: 20px;
+      border-radius: 50%;
+      box-shadow:
+        20px -6px 0 rgba(255,255,255,.06),
+        -26px 30px 0 rgba(255,255,255,.05),
+        -10px -18px 0 rgba(255,255,255,.04);
+    }
+
+    .gift-body {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      align-items: center;
+      min-height: 680px;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 18px;
+    }
+
+    .photo-shell {
+      display: grid;
+      place-items: center;
+      padding: 20px;
+    }
+
+    .photo-ring {
+      width: min(370px, 100%);
+      aspect-ratio: 1 / 1;
+      border-radius: 32px;
+      padding: 12px;
+      background: linear-gradient(145deg, rgba(255,255,255,.18), rgba(255,255,255,.04));
+      border: 1px solid rgba(255,255,255,.18);
+      box-shadow: var(--shadow);
+      transform: rotate(-3deg);
+    }
+
+    .photo-ring img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 24px;
+      display: block;
+      background: rgba(255,255,255,.05);
+    }
+
+    .letter {
+      padding: 22px;
+      align-self: center;
+    }
+
+    .letter-card {
+      padding: clamp(20px, 3vw, 34px);
+      border-radius: 30px;
+      background: rgba(255,255,255,.11);
+      border: 1px solid rgba(255,255,255,.16);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(16px);
+    }
+
+    .eyebrow {
+      color: var(--pink-2);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .recipient {
+      margin: 0;
+      font-size: clamp(34px, 6vw, 54px);
+      line-height: 1.02;
+      font-family: Georgia, serif;
+      text-wrap: balance;
+      overflow-wrap: anywhere;
+    }
+
+    .message {
+      margin: 18px 0 18px;
+      color: var(--white);
+      font-size: clamp(16px, 2vw, 19px);
+      line-height: 1.9;
+      white-space: pre-wrap;
+    }
+
+    .signature {
+      margin-top: 18px;
+      color: var(--gold);
+      font-weight: 700;
+      font-size: 18px;
+    }
+
+    .quote {
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255,255,255,.12);
+      color: var(--muted);
+      font-style: italic;
+      line-height: 1.7;
+      font-size: 15px;
+    }
+
+    .footer-note {
+      margin-top: 18px;
+      color: rgba(255,255,255,.55);
+      font-size: 12px;
+    }
+
+    .copy-box {
+      margin-top: 14px;
+      padding: 12px;
+      border-radius: 16px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.10);
+      color: var(--muted);
+      font-size: 12px;
+      word-break: break-all;
+      display: none;
+    }
+
+    .copy-box.show { display: block; }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 24px;
+      transform: translateX(-50%) translateY(18px);
+      opacity: 0;
+      padding: 12px 16px;
+      border-radius: 14px;
+      background: rgba(10,10,22,.85);
+      border: 1px solid rgba(255,255,255,.12);
+      box-shadow: var(--shadow);
+      color: var(--white);
+      z-index: 6;
+      transition: .25s ease;
+      font-size: 14px;
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    .hidden { display: none !important; }
+
+    @media (max-width: 920px) {
+      .grid { grid-template-columns: 1fr; }
+      .gift-body { grid-template-columns: 1fr; padding-top: 100px; }
+      .moon { width: 180px; height: 180px; right: -40px; top: -20px; }
+      .gift { min-height: auto; }
+      .photo-ring { transform: none; }
+    }
+
+    @media (max-width: 640px) {
+      .shell {
+        width: min(100% - 16px, 1100px);
+        padding: 12px 0 28px;
+      }
+      .card { border-radius: 24px; }
+      .panel, .hero { padding: 16px; }
+      .hero-centered {
+        min-height: calc(100svh - 24px);
+        justify-content: center;
+      }
+      .title {
+        max-width: 12ch;
+        margin-inline: auto;
+        font-size: clamp(24px, 9.2vw, 36px);
+        line-height: 1.08;
+      }
+      .section-title {
+        max-width: 12ch;
+        margin-inline: auto;
+        font-size: clamp(22px, 8.6vw, 32px);
+        line-height: 1.12;
+      }
+      .form-note-centered { font-size: 14px; }
+      .form-grid { grid-template-columns: 1fr; }
+      .hero-actions, .actions { flex-direction: column; }
+      button, .button-link { width: 100%; }
+      .preview-toolbar {
+        margin-bottom: 10px;
+        padding-inline: 2px;
+      }
+      .preview-toolbar button {
+        width: auto;
+        min-width: 120px;
+      }
+      .preview-wrap { padding: 10px; }
+      .cover-card { padding: 22px; }
+      .cover-card h2 { font-size: clamp(24px, 10vw, 34px); }
+      .cover-card p {
+        font-size: 14px;
+        line-height: 1.6;
+      }
+      .gift {
+        padding: 12px;
+        min-height: auto;
+      }
+      .gift-body {
+        padding-top: 78px;
+        min-height: auto;
+        gap: 14px;
+      }
+      .photo-ring { width: min(280px, 100%); }
+      .recipient { font-size: clamp(26px, 9vw, 36px); }
+      .message {
+        font-size: 15px;
+        line-height: 1.75;
+      }
+      .quote {
+        font-size: 14px;
+        line-height: 1.6;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="stars" id="stars"></div>
+  <div class="hearts" id="hearts"></div>
+
+  <main class="shell">
+    <section class="view is-active" id="introView">
+      <section class="single-stage">
+        <article class="card hero hero-centered">
+          <h1 class="title">Transforme um link em uma surpresa para qualquer ocasião.</h1>
+          <div class="hero-actions hero-actions-centered">
+            <button class="btn-primary" id="startFlowBtn">Começar agora</button>
+          </div>
+        </article>
+      </section>
+    </section>
+
+    <section class="view" id="builderView">
+      <section class="single-stage">
+        <section class="card panel panel-centered" id="formPanel">
+          <div class="form-header form-header-centered">
+            <h2 class="section-title">Monte a sua surpresa do seu jeito.</h2>
+            <p class="form-note form-note-centered">Preencha uma vez, gere o link e envie.</p>
+          </div>
+
+          <div class="actions actions-centered">
+            <button class="btn-secondary" id="loadDemoBtn">Prévia</button>
+          </div>
+
+          <div class="form-grid">
+            <div class="field">
+              <label for="recipientName">Nome de quem vai receber</label>
+              <input id="recipientName" type="text" placeholder="Ex.: Ana, Pai, Amor, Melhor amigo" />
+            </div>
+
+            <div class="field">
+              <label for="senderName">Assinatura</label>
+              <input id="senderName" type="text" placeholder="Ex.: Com carinho, Kaique" />
+            </div>
+
+            <div class="field full">
+              <label for="message">Mensagem</label>
+              <textarea id="message" placeholder="Escreva uma mensagem bonita, sincera e emocional."></textarea>
+            </div>
+
+            <div class="field full">
+              <label for="photoUrl">Link da foto</label>
+              <input id="photoUrl" type="url" placeholder="Cole aqui a URL de uma imagem (ex.: Imgur, postimg, Google Drive público)" />
+              <div class="small">Dica: para compartilhar por link sem backend, use uma URL pública de imagem.</div>
+            </div>
+
+            <div class="field full">
+              <label for="musicUrl">Link da música (opcional)</label>
+              <input id="musicUrl" type="url" placeholder="Cole o link direto de um MP3 público" />
+              <div class="small">Se não tiver música agora, deixe vazio. O presente continua funcionando.</div>
+            </div>
+
+            <div class="field">
+              <label for="accent">Frase final</label>
+              <select id="accent">
+                <option value="Hoje é um bom dia para lembrar o quanto você é importante.">Você é importante</option>
+                <option value="Que esta surpresa leve carinho, luz e boas memórias para o seu dia.">Carinho, luz e memórias</option>
+                <option value="Alguns gestos simples ficam guardados para sempre.">Gestos que ficam</option>
+                <option value="Você faz este momento ficar ainda mais especial.">Momento especial</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="openText">Texto da abertura</label>
+              <input id="openText" type="text" placeholder="Ex.: Preparei algo especial para você..." />
+            </div>
+          </div>
+
+          <div class="actions actions-centered">
+            <button class="btn-primary" id="generateBtn">Gerar link</button>
+            <button class="btn-secondary" id="clearBtn">Limpar</button>
+          </div>
+
+          <div class="copy-box" id="linkBox"></div>
+
+          <div class="actions actions-centered">
+            <button class="btn-primary hidden" id="copyBtn">Copiar link</button>
+            <a class="button-link btn-secondary hidden" id="openGiftLink" target="_blank" rel="noopener noreferrer">Abrir presente</a>
+          </div>
+        </section>
+      </section>
+    </section>
+
+    <section class="view" id="letterView">
+      <div class="preview-toolbar hidden" id="previewToolbar">
+        <button class="btn-secondary" id="previewBackBtn">Voltar</button>
+      </div>
+      <section class="card preview-wrap" id="giftSectionWrap">
+        <div class="gift" id="giftSection">
+          <div class="moon"></div>
+
+          <div class="cover" id="cover">
+            <div class="cover-card">
+              <h2 id="coverTitle">Preparei algo especial para você...</h2>
+              <p>
+                Toque no botão abaixo e aproveite esta mensagem preparada com carinho para celebrar este momento.
+              </p>
+              <div class="actions">
+                <button class="btn-primary" id="openGiftBtn">Abrir surpresa 💖</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="gift-body">
+            <div class="photo-shell">
+              <div class="photo-ring">
+                <img id="giftPhoto" alt="Foto especial" src="" />
+              </div>
+            </div>
+
+            <div class="letter">
+              <div class="letter-card">
+                <div class="eyebrow">Para alguém especial</div>
+                <h2 class="recipient" id="giftRecipient">Você</h2>
+                <p class="message" id="giftMessage">Esta surpresa foi preparada com carinho para celebrar um momento importante.</p>
+                <div class="signature" id="giftSender">Com carinho</div>
+                <div class="quote" id="giftAccent">Hoje é um bom dia para lembrar o quanto você é importante.</div>
+                <div class="footer-note">Feito para celebrar momentos especiais ✨</div>
+              </div>
+            </div>
+          </div>
+
+          <audio id="giftAudio" preload="none" loop></audio>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    const $ = (id) => document.getElementById(id);
+    const VIEWS = {
+      intro: "intro",
+      customize: "personalizar",
+      letter: "carta"
+    };
+    const DATA_KEYS = ["recipient", "sender", "message", "photo", "music", "accent", "openText"];
+
+    const els = {
+      introView: $("introView"),
+      builderView: $("builderView"),
+      letterView: $("letterView"),
+      startFlowBtn: $("startFlowBtn"),
+      recipientName: $("recipientName"),
+      senderName: $("senderName"),
+      message: $("message"),
+      photoUrl: $("photoUrl"),
+      musicUrl: $("musicUrl"),
+      accent: $("accent"),
+      openText: $("openText"),
+      generateBtn: $("generateBtn"),
+      clearBtn: $("clearBtn"),
+      linkBox: $("linkBox"),
+      copyBtn: $("copyBtn"),
+      openGiftLink: $("openGiftLink"),
+      previewToolbar: $("previewToolbar"),
+      previewBackBtn: $("previewBackBtn"),
+      giftSection: $("giftSection"),
+      giftRecipient: $("giftRecipient"),
+      giftMessage: $("giftMessage"),
+      giftSender: $("giftSender"),
+      giftAccent: $("giftAccent"),
+      giftPhoto: $("giftPhoto"),
+      giftAudio: $("giftAudio"),
+      cover: $("cover"),
+      coverTitle: $("coverTitle"),
+      openGiftBtn: $("openGiftBtn"),
+      toast: $("toast"),
+      loadDemoBtn: $("loadDemoBtn"),
+      formPanel: $("formPanel")
+    };
+
+    const defaultPhoto = "https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=1200&q=80";
+    let isPreviewSession = false;
+    let previewSnapshot = null;
+
+    function showToast(message) {
+      els.toast.textContent = message;
+      els.toast.classList.add("show");
+      clearTimeout(showToast._t);
+      showToast._t = setTimeout(() => els.toast.classList.remove("show"), 2400);
+    }
+
+    function safeDecode(value) {
+      try {
+        return decodeURIComponent(value);
+      } catch {
+        return value;
+      }
+    }
+
+    function readForm() {
+      return {
+        recipient: els.recipientName.value.trim() || "Você",
+        sender: els.senderName.value.trim() || "Com carinho",
+        message: els.message.value.trim() || "Esta é uma lembrança feita com carinho para celebrar um momento importante.",
+        photo: els.photoUrl.value.trim() || defaultPhoto,
+        music: els.musicUrl.value.trim(),
+        accent: els.accent.value.trim(),
+        openText: els.openText.value.trim() || "Preparei algo especial para você..."
+      };
+    }
+
+    function fillForm(data) {
+      els.recipientName.value = data.recipient || "";
+      els.senderName.value = data.sender || "";
+      els.message.value = data.message || "";
+      els.photoUrl.value = data.photo && data.photo !== defaultPhoto ? data.photo : "";
+      els.musicUrl.value = data.music || "";
+      if ([...els.accent.options].some((opt) => opt.value === data.accent)) {
+        els.accent.value = data.accent;
+      }
+      els.openText.value = data.openText || "";
+    }
+
+    function renderGift(data) {
+      els.giftRecipient.textContent = data.recipient || "Você";
+      els.giftMessage.textContent = data.message || "Esta surpresa foi preparada com carinho para celebrar um momento importante.";
+      els.giftSender.textContent = data.sender || "Com carinho";
+      els.giftAccent.textContent = data.accent || "Hoje é um bom dia para lembrar o quanto você é importante.";
+      els.giftPhoto.src = data.photo || defaultPhoto;
+      els.giftPhoto.alt = `Foto especial para ${data.recipient || "você"}`;
+      els.coverTitle.textContent = data.openText || "Preparei algo especial para você...";
+      els.cover.classList.remove("hidden");
+      els.giftSection.classList.add("show");
+      els.giftAudio.pause();
+      els.giftAudio.currentTime = 0;
+
+      if (data.music) {
+        els.giftAudio.src = data.music;
+      } else {
+        els.giftAudio.removeAttribute("src");
+        els.giftAudio.load();
+      }
+    }
+
+    function setPreviewSession(active) {
+      isPreviewSession = active;
+      els.previewToolbar.classList.toggle("hidden", !active);
+    }
+
+    function updateHistory(mode, url, state = null) {
+      try {
+        history[mode](state, "", url);
+      } catch {
+        return false;
+      }
+      return true;
+    }
+
+    function decodeData(params) {
+      return {
+        recipient: safeDecode(params.get("recipient") || "Você"),
+        sender: safeDecode(params.get("sender") || "Com carinho"),
+        message: safeDecode(params.get("message") || ""),
+        photo: safeDecode(params.get("photo") || defaultPhoto),
+        music: safeDecode(params.get("music") || ""),
+        accent: safeDecode(params.get("accent") || "Hoje é um bom dia para lembrar o quanto você é importante."),
+        openText: safeDecode(params.get("openText") || "Preparei algo especial para você...")
+      };
+    }
+
+    function buildRelativeUrl(view, data = null) {
+      const params = new URLSearchParams();
+
+      if (view && view !== VIEWS.intro) {
+        params.set("view", view);
+      }
+
+      if (data) {
+        Object.entries(data).forEach(([key, value]) => {
+          if (value) params.set(key, value);
+        });
+      }
+
+      const query = params.toString();
+      return query ? `${location.pathname}?${query}` : location.pathname;
+    }
+
+    function buildAbsoluteUrl(view, data = null) {
+      const url = new URL(location.href);
+      url.hash = "";
+      url.search = "";
+
+      if (view && view !== VIEWS.intro) {
+        url.searchParams.set("view", view);
+      }
+
+      if (data) {
+        Object.entries(data).forEach(([key, value]) => {
+          if (value) {
+            url.searchParams.set(key, value);
+          }
+        });
+      }
+
+      return url.toString();
+    }
+
+    function hasIncomingData(params) {
+      return DATA_KEYS.some((key) => params.has(key));
+    }
+
+    function showView(view, { scroll = true } = {}) {
+      const activeView = Object.values(VIEWS).includes(view) ? view : VIEWS.intro;
+      els.introView.classList.toggle("is-active", activeView === VIEWS.intro);
+      els.builderView.classList.toggle("is-active", activeView === VIEWS.customize);
+      els.letterView.classList.toggle("is-active", activeView === VIEWS.letter);
+      document.body.dataset.view = activeView;
+
+      if (scroll) {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+    }
+
+    function openGiftExperience() {
+      els.cover.classList.add("hidden");
+      if (els.giftAudio.getAttribute("src")) {
+        els.giftAudio.volume = 0.45;
+        els.giftAudio.play().catch(() => {});
+      }
+    }
+
+    function openCustomization(historyMode = "push") {
+      renderGift(readForm());
+      setPreviewSession(false);
+      showView(VIEWS.customize);
+      const method = historyMode === "replace" ? "replaceState" : "pushState";
+      updateHistory(method, buildRelativeUrl(VIEWS.customize));
+    }
+
+    function generateLink() {
+      const data = readForm();
+      const giftUrl = buildAbsoluteUrl(VIEWS.letter, data);
+      els.linkBox.textContent = giftUrl;
+      els.linkBox.classList.add("show");
+      els.copyBtn.classList.remove("hidden");
+      els.openGiftLink.classList.remove("hidden");
+      els.openGiftLink.href = giftUrl;
+      renderGift(data);
+      setPreviewSession(false);
+      showView(VIEWS.customize);
+      updateHistory("replaceState", buildRelativeUrl(VIEWS.customize, data));
+      showToast("Link gerado com sucesso.");
+    }
+
+    function openPreviewInPlace() {
+      previewSnapshot = readForm();
+      renderGift(previewSnapshot);
+      setPreviewSession(true);
+      showView(VIEWS.letter);
+      updateHistory("pushState", buildRelativeUrl(VIEWS.customize), { previewLock: true });
+      showToast("Prévia aberta.");
+    }
+
+    function closePreviewToCustomization() {
+      els.giftAudio.pause();
+      els.giftAudio.currentTime = 0;
+      previewSnapshot = null;
+      setPreviewSession(false);
+      showView(VIEWS.customize);
+      updateHistory("replaceState", buildRelativeUrl(VIEWS.customize));
+    }
+
+    async function copyLink() {
+      const text = els.linkBox.textContent.trim();
+      if (!text) return;
+      try {
+        await navigator.clipboard.writeText(text);
+        showToast("Link copiado.");
+      } catch {
+        showToast("Não consegui copiar automaticamente.");
+      }
+    }
+
+    function clearForm() {
+      fillForm({
+        recipient: "",
+        sender: "",
+        message: "",
+        photo: "",
+        music: "",
+        accent: "Hoje é um bom dia para lembrar o quanto você é importante.",
+        openText: ""
+      });
+      els.linkBox.textContent = "";
+      els.linkBox.classList.remove("show");
+      els.copyBtn.classList.add("hidden");
+      els.openGiftLink.classList.add("hidden");
+      renderGift(readForm());
+      setPreviewSession(false);
+      showView(VIEWS.customize);
+      updateHistory("replaceState", buildRelativeUrl(VIEWS.customize));
+      showToast("Campos limpos.");
+    }
+
+    function initFromUrl() {
+      let params = new URLSearchParams(location.search);
+      const legacyHash = location.hash.startsWith("#gift?");
+
+      if (!params.toString() && legacyHash) {
+        params = new URLSearchParams(location.hash.replace("#gift?", ""));
+        params.set("view", VIEWS.letter);
+      }
+
+      const incomingView = params.get("view");
+      const hasData = hasIncomingData(params);
+      const data = hasData ? decodeData(params) : readForm();
+
+      if (hasData) {
+        fillForm(data);
+      }
+
+      renderGift(data);
+      setPreviewSession(false);
+      previewSnapshot = null;
+
+      if (incomingView === VIEWS.letter) {
+        showView(VIEWS.letter, { scroll: false });
+      } else if (incomingView === VIEWS.customize || hasData) {
+        showView(VIEWS.customize, { scroll: false });
+      } else {
+        showView(VIEWS.intro, { scroll: false });
+      }
+
+      if (legacyHash) {
+        updateHistory("replaceState", buildRelativeUrl(VIEWS.letter, data));
+      }
+    }
+
+    function createStars() {
+      const container = $("stars");
+      const count = window.innerWidth < 700 ? 55 : 90;
+      container.innerHTML = "";
+      for (let i = 0; i < count; i++) {
+        const star = document.createElement("span");
+        star.className = "star";
+        star.style.left = `${Math.random() * 100}%`;
+        star.style.top = `${Math.random() * 100}%`;
+        star.style.animationDelay = `${Math.random() * 4}s`;
+        star.style.opacity = (Math.random() * 0.7 + 0.2).toFixed(2);
+        container.appendChild(star);
+      }
+    }
+
+    function createHearts() {
+      const container = $("hearts");
+      const count = 16;
+      const hearts = ["✦", "✧", "•"];
+      container.innerHTML = "";
+      for (let i = 0; i < count; i++) {
+        const heart = document.createElement("span");
+        heart.className = "heart";
+        heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+        heart.style.left = `${Math.random() * 100}%`;
+        heart.style.bottom = `${-10 - Math.random() * 40}px`;
+        heart.style.animationDuration = `${10 + Math.random() * 12}s`;
+        heart.style.animationDelay = `${Math.random() * 6}s`;
+        heart.style.color = Math.random() > .35 ? "rgba(255, 225, 163, .78)" : "rgba(140, 205, 189, .6)";
+        container.appendChild(heart);
+      }
+    }
+
+    els.generateBtn.addEventListener("click", generateLink);
+    els.clearBtn.addEventListener("click", clearForm);
+    els.copyBtn.addEventListener("click", copyLink);
+    els.openGiftBtn.addEventListener("click", openGiftExperience);
+    els.loadDemoBtn.addEventListener("click", openPreviewInPlace);
+    els.previewBackBtn.addEventListener("click", closePreviewToCustomization);
+    els.startFlowBtn.addEventListener("click", () => openCustomization("replace"));
+    window.addEventListener("resize", () => {
+      createStars();
+      createHearts();
+    });
+    window.addEventListener("popstate", () => {
+      if (isPreviewSession) {
+        updateHistory("pushState", buildRelativeUrl(VIEWS.customize), { previewLock: true });
+        if (previewSnapshot) {
+          renderGift(previewSnapshot);
+        }
+        setPreviewSession(true);
+        showView(VIEWS.letter, { scroll: false });
+        return;
+      }
+
+      initFromUrl();
+    });
+
+    createStars();
+    createHearts();
+    initFromUrl();
+  </script>
+</body>
+</html>
