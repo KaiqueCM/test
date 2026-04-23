@@ -344,6 +344,74 @@
 
     .field.full { grid-column: 1 / -1; }
 
+    .field-signature { order: 4; }
+    .field-photo { order: 5; }
+    .field-music { order: 6; grid-column: 1 / -1; }
+    .field-theme { order: 7; }
+
+    .theme-picker {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      border-radius: 20px;
+    }
+
+    .theme-option {
+      width: 100%;
+      min-height: 54px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      color: var(--white);
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease, background .18s ease;
+    }
+
+    .theme-option:hover {
+      transform: translateY(-1px);
+      border-color: rgba(255,255,255,.28);
+    }
+
+    .theme-option.is-selected {
+      border-color: rgba(255,255,255,.72);
+      box-shadow: 0 0 0 1px rgba(255,255,255,.22), 0 14px 24px rgba(0,0,0,.16);
+    }
+
+    .theme-option:focus-visible {
+      outline: 2px solid rgba(255,255,255,.72);
+      outline-offset: 2px;
+    }
+
+    .theme-option[data-theme="primavera"] {
+      background: linear-gradient(135deg, rgba(255, 186, 214, .34), rgba(168, 223, 194, .2));
+    }
+
+    .theme-option[data-theme="verao"] {
+      background: linear-gradient(135deg, rgba(255, 194, 111, .34), rgba(255, 131, 76, .18));
+    }
+
+    .theme-option[data-theme="outono"] {
+      background: linear-gradient(135deg, rgba(196, 121, 71, .34), rgba(126, 69, 33, .18));
+    }
+
+    .theme-option[data-theme="inverno"] {
+      background: linear-gradient(135deg, rgba(156, 198, 242, .3), rgba(210, 232, 255, .16));
+    }
+
+    .field.is-invalid label {
+      color: #ff9ea8;
+    }
+
+    .field.is-invalid input:not([type="hidden"]),
+    .field.is-invalid textarea,
+    .field.is-invalid select,
+    .field.is-invalid .theme-picker {
+      border-color: rgba(255, 108, 124, .95);
+      box-shadow: 0 0 0 2px rgba(255, 108, 124, .18);
+    }
+
     label {
       font-size: 13px;
       color: var(--pink-2);
@@ -365,7 +433,7 @@
     input::placeholder, textarea::placeholder { color: rgba(255,255,255,.42); }
 
     textarea {
-      min-height: 132px;
+      min-height: 168px;
       resize: vertical;
       line-height: 1.6;
     }
@@ -810,50 +878,57 @@
           </div>
 
           <div class="actions actions-centered">
-            <button class="btn-secondary" id="loadDemoBtn">Prévia</button>
+            <button class="btn-secondary" id="loadDemoBtn">Carregar exemplo</button>
           </div>
 
           <div class="form-grid">
-            <div class="field">
-              <label for="recipientName">Nome de quem vai receber</label>
-              <input id="recipientName" type="text" placeholder="Ex.: Ana, Pai, Amor, Melhor amigo" />
+            <div class="field field-open-text" data-required="true">
+              <label for="openText">Titulo</label>
+              <input id="openText" type="text" placeholder="Ex.: Uma surpresa especial" />
             </div>
 
-            <div class="field">
-              <label for="senderName">Assinatura</label>
-              <input id="senderName" type="text" placeholder="Ex.: Com carinho, Kaique" />
+            <div class="field field-letter-title" data-required="true">
+              <label for="recipientName">Titulo da carta</label>
+              <input id="recipientName" type="text" placeholder="Ex.: Uma lembranca para voce" />
             </div>
 
-            <div class="field full">
+            <div class="field full field-message" data-required="true">
               <label for="message">Mensagem</label>
               <textarea id="message" placeholder="Escreva uma mensagem bonita, sincera e emocional."></textarea>
             </div>
 
-            <div class="field full">
-              <label for="photoUrl">Link da foto</label>
-              <input id="photoUrl" type="url" placeholder="Cole aqui a URL de uma imagem (ex.: Imgur, postimg, Google Drive público)" />
-              <div class="small">Dica: para compartilhar por link sem backend, use uma URL pública de imagem.</div>
+            <div class="field field-photo">
+              <label for="photoFile">Foto em PNG (opcional)</label>
+              <input id="photoFile" type="file" accept=".png,image/png" />
+              <div class="small">A foto entra so no link gerado. Para outro link com foto, escolha o PNG novamente.</div>
             </div>
 
-            <div class="field full">
-              <label for="musicUrl">Link da música (opcional)</label>
-              <input id="musicUrl" type="url" placeholder="Cole o link direto de um MP3 público" />
-              <div class="small">Se não tiver música agora, deixe vazio. O presente continua funcionando.</div>
-            </div>
-
-            <div class="field">
-              <label for="accent">Frase final</label>
-              <select id="accent">
-                <option value="Hoje é um bom dia para lembrar o quanto você é importante.">Você é importante</option>
-                <option value="Que esta surpresa leve carinho, luz e boas memórias para o seu dia.">Carinho, luz e memórias</option>
-                <option value="Alguns gestos simples ficam guardados para sempre.">Gestos que ficam</option>
-                <option value="Você faz este momento ficar ainda mais especial.">Momento especial</option>
+            <div class="field field-music">
+              <label for="musicUrl">Musica (opcional)</label>
+              <select id="musicUrl">
+                <option value="">Sem musica</option>
+                <option value="musica/Ed Sheeran - Photograph.mp3">Ed Sheeran - Photograph</option>
+                <option value="musica/James Arthur - Can I Be Him.mp3">James Arthur - Can I Be Him</option>
+                <option value="musica/James Arthur - Say You Won't Let Go.mp3">James Arthur - Say You Won't Let Go</option>
+                <option value="musica/Lauv - Paris in the Rain.mp3">Lauv - Paris in the Rain</option>
+                <option value="musica/Sleeping At Last - Turning Page.mp3">Sleeping At Last - Turning Page</option>
               </select>
             </div>
 
-            <div class="field">
-              <label for="openText">Texto da abertura</label>
-              <input id="openText" type="text" placeholder="Ex.: Preparei algo especial para você..." />
+            <div class="field field-signature">
+              <label for="senderName">Assinatura (opcional)</label>
+              <input id="senderName" type="text" placeholder="Ex.: Com carinho" />
+            </div>
+
+            <div class="field full field-theme" id="themeField" data-required="true">
+              <label for="themeInput">Selecionar tema</label>
+              <input id="themeInput" type="hidden" />
+              <div class="theme-picker" id="themePicker" role="group" aria-label="Selecionar tema">
+                <button type="button" class="theme-option" data-theme="primavera">Primavera</button>
+                <button type="button" class="theme-option" data-theme="verao">Verão</button>
+                <button type="button" class="theme-option" data-theme="outono">Outono</button>
+                <button type="button" class="theme-option" data-theme="inverno">Inverno</button>
+              </div>
             </div>
           </div>
 
@@ -882,7 +957,7 @@
 
           <div class="cover" id="cover">
             <div class="cover-card">
-              <h2 id="coverTitle">Preparei algo especial para você...</h2>
+              <h2 id="coverTitle">Uma surpresa especial</h2>
               <p>
                 Toque no botão abaixo e aproveite esta mensagem preparada com carinho para celebrar este momento.
               </p>
@@ -901,8 +976,8 @@
 
             <div class="letter">
               <div class="letter-card">
-                <div class="eyebrow">Para alguém especial</div>
-                <h2 class="recipient" id="giftRecipient">Você</h2>
+                <div class="eyebrow">Carta especial</div>
+                <h2 class="recipient" id="giftRecipient">Uma lembranca para voce</h2>
                 <p class="message" id="giftMessage">Esta surpresa foi preparada com carinho para celebrar um momento importante.</p>
                 <div class="signature" id="giftSender">Com carinho</div>
                 <div class="quote" id="giftAccent">Hoje é um bom dia para lembrar o quanto você é importante.</div>
@@ -926,7 +1001,7 @@
       customize: "personalizar",
       letter: "carta"
     };
-    const DATA_KEYS = ["recipient", "sender", "message", "photo", "music", "accent", "openText"];
+    const DATA_KEYS = ["recipient", "sender", "message", "photo", "music", "openText", "theme"];
 
     const els = {
       introView: $("introView"),
@@ -936,10 +1011,12 @@
       recipientName: $("recipientName"),
       senderName: $("senderName"),
       message: $("message"),
-      photoUrl: $("photoUrl"),
+      photoFile: $("photoFile"),
       musicUrl: $("musicUrl"),
-      accent: $("accent"),
       openText: $("openText"),
+      themeInput: $("themeInput"),
+      themePicker: $("themePicker"),
+      themeOptions: [...document.querySelectorAll("#themePicker .theme-option")],
       generateBtn: $("generateBtn"),
       clearBtn: $("clearBtn"),
       linkBox: $("linkBox"),
@@ -963,8 +1040,35 @@
     };
 
     const defaultPhoto = "https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=1200&q=80";
+    const defaultRecipient = "Uma lembranca para voce";
+    const defaultSender = "";
+    const defaultMessage = "Esta é uma lembrança feita com carinho para celebrar um momento importante.";
+    const defaultAccent = "Hoje é um bom dia para lembrar o quanto você é importante.";
+    const defaultOpenText = "Uma surpresa especial";
+    const defaultTheme = "primavera";
+    const fixedExample = {
+      recipient: "Uma mensagem especial",
+      sender: "Com carinho",
+      message: "Separei esta lembrança para transformar o dia em um momento ainda mais bonito.",
+      photo: defaultPhoto,
+      music: "musica/Ed Sheeran - Photograph.mp3",
+      openText: "Uma surpresa feita com carinho",
+      theme: defaultTheme
+    };
+    const MAX_SHARED_PHOTO_LENGTH = 110000;
+    const CART_PAGE_PATH = "cart/index.html";
+    const BUILDER_DRAFT_KEY = "gift-builder-draft";
     let isPreviewSession = false;
     let previewSnapshot = null;
+    let uploadedPhotoData = "";
+    let isPhotoProcessing = false;
+    let photoSelectionToken = 0;
+    const requiredFields = [
+      { key: "openText", input: els.openText },
+      { key: "recipient", input: els.recipientName },
+      { key: "message", input: els.message },
+      { key: "theme", input: els.themeInput }
+    ];
 
     function showToast(message) {
       els.toast.textContent = message;
@@ -981,38 +1085,263 @@
       }
     }
 
-    function readForm() {
+    function normalizeTheme(value) {
+      const normalized = (value || "").trim().toLowerCase();
+      const aliases = {
+        primavera: "primavera",
+        verao: "verao",
+        "verão": "verao",
+        outono: "outono",
+        inverno: "inverno"
+      };
+
+      return aliases[normalized] || "";
+    }
+
+    function getFieldElement(input) {
+      return input?.closest(".field") || null;
+    }
+
+    function clearFieldInvalid(input) {
+      const field = getFieldElement(input);
+      if (field) {
+        field.classList.remove("is-invalid");
+      }
+    }
+
+    function clearAllFieldValidation() {
+      requiredFields.forEach(({ input }) => clearFieldInvalid(input));
+    }
+
+    function setThemeChoice(theme) {
+      const nextTheme = normalizeTheme(theme);
+      els.themeInput.value = nextTheme;
+      els.themeOptions.forEach((button) => {
+        const isSelected = button.dataset.theme === nextTheme;
+        button.classList.toggle("is-selected", isSelected);
+        button.setAttribute("aria-pressed", String(isSelected));
+      });
+      clearFieldInvalid(els.themeInput);
+    }
+
+    function getRawFormData() {
       return {
-        recipient: els.recipientName.value.trim() || "Você",
-        sender: els.senderName.value.trim() || "Com carinho",
-        message: els.message.value.trim() || "Esta é uma lembrança feita com carinho para celebrar um momento importante.",
-        photo: els.photoUrl.value.trim() || defaultPhoto,
+        recipient: els.recipientName.value.trim(),
+        sender: els.senderName.value.trim(),
+        message: els.message.value.trim(),
+        photo: uploadedPhotoData || "",
         music: els.musicUrl.value.trim(),
-        accent: els.accent.value.trim(),
-        openText: els.openText.value.trim() || "Preparei algo especial para você..."
+        openText: els.openText.value.trim(),
+        theme: normalizeTheme(els.themeInput.value)
       };
     }
 
-    function fillForm(data) {
-      els.recipientName.value = data.recipient || "";
-      els.senderName.value = data.sender || "";
-      els.message.value = data.message || "";
-      els.photoUrl.value = data.photo && data.photo !== defaultPhoto ? data.photo : "";
-      els.musicUrl.value = data.music || "";
-      if ([...els.accent.options].some((opt) => opt.value === data.accent)) {
-        els.accent.value = data.accent;
+    function readForm() {
+      const data = getRawFormData();
+
+      return {
+        recipient: data.recipient || defaultRecipient,
+        sender: data.sender || defaultSender,
+        message: data.message || defaultMessage,
+        photo: data.photo,
+        music: data.music,
+        openText: data.openText || defaultOpenText,
+        theme: data.theme || defaultTheme
+      };
+    }
+
+    function validateRequiredFields() {
+      const data = getRawFormData();
+      let firstInvalidInput = null;
+
+      requiredFields.forEach(({ key, input }) => {
+        const isValid = Boolean(data[key]);
+        const field = getFieldElement(input);
+        if (field) {
+          field.classList.toggle("is-invalid", !isValid);
+        }
+        if (!isValid && !firstInvalidInput) {
+          firstInvalidInput = key === "theme" ? els.themeOptions[0] || els.themePicker : input;
+        }
+      });
+
+      return {
+        isValid: !firstInvalidInput,
+        firstInvalidInput
+      };
+    }
+
+    function optionExists(select, value) {
+      return [...select.options].some((option) => option.value === value);
+    }
+
+    function getBuilderDraft() {
+      return {
+        recipient: els.recipientName.value.trim(),
+        sender: els.senderName.value.trim(),
+        message: els.message.value.trim(),
+        music: els.musicUrl.value.trim(),
+        openText: els.openText.value.trim(),
+        theme: normalizeTheme(els.themeInput.value)
+      };
+    }
+
+    function saveBuilderDraft() {
+      try {
+        sessionStorage.setItem(BUILDER_DRAFT_KEY, JSON.stringify(getBuilderDraft()));
+      } catch {}
+    }
+
+    function restoreBuilderDraft() {
+      try {
+        const raw = sessionStorage.getItem(BUILDER_DRAFT_KEY);
+        if (!raw) return false;
+        sessionStorage.removeItem(BUILDER_DRAFT_KEY);
+        const draft = JSON.parse(raw);
+        fillForm({
+          recipient: draft.recipient || "",
+          sender: draft.sender || "",
+          message: draft.message || "",
+          music: draft.music || "",
+          openText: draft.openText || "",
+          theme: draft.theme || ""
+        });
+        return true;
+      } catch {
+        return false;
       }
-      els.openText.value = data.openText || "";
+    }
+
+    function clearBuilderDraft() {
+      try {
+        sessionStorage.removeItem(BUILDER_DRAFT_KEY);
+      } catch {}
+    }
+
+    function clearUploadedPhoto() {
+      photoSelectionToken += 1;
+      uploadedPhotoData = "";
+      isPhotoProcessing = false;
+      if (els.photoFile) {
+        els.photoFile.value = "";
+      }
+    }
+
+    function loadImage(url) {
+      return new Promise((resolve, reject) => {
+        const image = new Image();
+        image.onload = () => resolve(image);
+        image.onerror = () => reject(new Error("image-load-failed"));
+        image.src = url;
+      });
+    }
+
+    function createEmbeddedPhotoData(image, maxSide, quality) {
+      const sourceWidth = image.naturalWidth || image.width;
+      const sourceHeight = image.naturalHeight || image.height;
+      const scale = Math.min(1, maxSide / Math.max(sourceWidth, sourceHeight));
+      const width = Math.max(1, Math.round(sourceWidth * scale));
+      const height = Math.max(1, Math.round(sourceHeight * scale));
+      const canvas = document.createElement("canvas");
+      canvas.width = width;
+      canvas.height = height;
+      const context = canvas.getContext("2d");
+      if (!context) {
+        throw new Error("canvas-context-unavailable");
+      }
+      context.drawImage(image, 0, 0, width, height);
+
+      let dataUrl = canvas.toDataURL("image/webp", quality);
+      if (!dataUrl.startsWith("data:image/webp")) {
+        dataUrl = canvas.toDataURL("image/png");
+      }
+
+      return dataUrl;
+    }
+
+    async function buildEmbeddedPhoto(file) {
+      const objectUrl = URL.createObjectURL(file);
+
+      try {
+        const image = await loadImage(objectUrl);
+        const attempts = [
+          { maxSide: 720, quality: 0.86 },
+          { maxSide: 620, quality: 0.82 },
+          { maxSide: 520, quality: 0.78 },
+          { maxSide: 420, quality: 0.72 }
+        ];
+
+        for (const attempt of attempts) {
+          const dataUrl = createEmbeddedPhotoData(image, attempt.maxSide, attempt.quality);
+          if (dataUrl.length <= MAX_SHARED_PHOTO_LENGTH) {
+            return dataUrl;
+          }
+        }
+      } finally {
+        URL.revokeObjectURL(objectUrl);
+      }
+
+      throw new Error("photo-too-large");
+    }
+
+    async function handlePhotoSelection() {
+      const currentToken = ++photoSelectionToken;
+      const file = els.photoFile.files && els.photoFile.files[0];
+
+      if (!file) {
+        if (currentToken === photoSelectionToken) {
+          clearUploadedPhoto();
+        }
+        return;
+      }
+
+      if ((file.type && file.type !== "image/png") || !file.name.toLowerCase().endsWith(".png")) {
+        if (currentToken === photoSelectionToken) {
+          clearUploadedPhoto();
+          showToast("Escolha um arquivo PNG.");
+        }
+        return;
+      }
+
+      isPhotoProcessing = true;
+
+      try {
+        const photoData = await buildEmbeddedPhoto(file);
+        if (currentToken !== photoSelectionToken) return;
+        uploadedPhotoData = photoData;
+        showToast("Foto pronta para o link.");
+      } catch {
+        if (currentToken !== photoSelectionToken) return;
+        clearUploadedPhoto();
+        showToast("Nao consegui preparar essa foto. Tente outro PNG.");
+      } finally {
+        if (currentToken === photoSelectionToken) {
+          isPhotoProcessing = false;
+        }
+      }
+    }
+
+    function fillForm(data) {
+      els.recipientName.value = data.recipient && data.recipient !== defaultRecipient ? data.recipient : "";
+      els.senderName.value = data.sender && data.sender !== defaultSender ? data.sender : "";
+      els.message.value = data.message && data.message !== defaultMessage ? data.message : "";
+      clearUploadedPhoto();
+      els.musicUrl.value = optionExists(els.musicUrl, data.music || "") ? data.music || "" : "";
+      els.openText.value = data.openText && data.openText !== defaultOpenText ? data.openText : "";
+      setThemeChoice(data.theme || "");
+      clearAllFieldValidation();
     }
 
     function renderGift(data) {
-      els.giftRecipient.textContent = data.recipient || "Você";
-      els.giftMessage.textContent = data.message || "Esta surpresa foi preparada com carinho para celebrar um momento importante.";
-      els.giftSender.textContent = data.sender || "Com carinho";
-      els.giftAccent.textContent = data.accent || "Hoje é um bom dia para lembrar o quanto você é importante.";
+      const visibleSender = data.sender || defaultSender;
+      els.giftRecipient.textContent = data.recipient || defaultRecipient;
+      els.giftMessage.textContent = data.message || defaultMessage;
+      els.giftSender.textContent = visibleSender;
+      els.giftSender.classList.toggle("hidden", !visibleSender);
+      els.giftAccent.textContent = data.accent || defaultAccent;
       els.giftPhoto.src = data.photo || defaultPhoto;
-      els.giftPhoto.alt = `Foto especial para ${data.recipient || "você"}`;
-      els.coverTitle.textContent = data.openText || "Preparei algo especial para você...";
+      els.giftPhoto.alt = `Foto especial da carta ${data.recipient || "especial"}`;
+      els.coverTitle.textContent = data.openText || defaultOpenText;
       els.cover.classList.remove("hidden");
       els.giftSection.classList.add("show");
       els.giftAudio.pause();
@@ -1042,14 +1371,39 @@
 
     function decodeData(params) {
       return {
-        recipient: safeDecode(params.get("recipient") || "Você"),
-        sender: safeDecode(params.get("sender") || "Com carinho"),
+        recipient: safeDecode(params.get("recipient") || defaultRecipient),
+        sender: safeDecode(params.get("sender") || defaultSender),
         message: safeDecode(params.get("message") || ""),
-        photo: safeDecode(params.get("photo") || defaultPhoto),
+        photo: safeDecode(params.get("photo") || ""),
         music: safeDecode(params.get("music") || ""),
-        accent: safeDecode(params.get("accent") || "Hoje é um bom dia para lembrar o quanto você é importante."),
-        openText: safeDecode(params.get("openText") || "Preparei algo especial para você...")
+        openText: safeDecode(params.get("openText") || defaultOpenText),
+        theme: normalizeTheme(safeDecode(params.get("theme") || defaultTheme)) || defaultTheme
       };
+    }
+
+    function isDefaultValue(key, value) {
+      const defaults = {
+        recipient: defaultRecipient,
+        sender: defaultSender,
+        message: defaultMessage,
+        photo: "",
+        music: "",
+        openText: defaultOpenText,
+        theme: defaultTheme
+      };
+
+      return defaults[key] === value;
+    }
+
+    function appendDataToParams(params, data, { includePhoto = true, omitDefaults = false } = {}) {
+      if (!data) return;
+
+      Object.entries(data).forEach(([key, value]) => {
+        if (!value) return;
+        if (!includePhoto && key === "photo") return;
+        if (omitDefaults && key !== "theme" && isDefaultValue(key, value)) return;
+        params.set(key, value);
+      });
     }
 
     function buildRelativeUrl(view, data = null) {
@@ -1059,32 +1413,25 @@
         params.set("view", view);
       }
 
-      if (data) {
-        Object.entries(data).forEach(([key, value]) => {
-          if (value) params.set(key, value);
-        });
-      }
+      appendDataToParams(params, data, { includePhoto: false, omitDefaults: true });
 
       const query = params.toString();
       return query ? `${location.pathname}?${query}` : location.pathname;
     }
 
-    function buildAbsoluteUrl(view, data = null) {
-      const url = new URL(location.href);
-      url.hash = "";
+    function buildGiftShareUrl(data, { preview = false, returnUrl = "" } = {}) {
+      const url = new URL(CART_PAGE_PATH, location.href);
       url.search = "";
-
-      if (view && view !== VIEWS.intro) {
-        url.searchParams.set("view", view);
+      url.hash = "";
+      const params = new URLSearchParams();
+      appendDataToParams(params, data, { includePhoto: true, omitDefaults: true });
+      if (preview) {
+        params.set("preview", "1");
       }
-
-      if (data) {
-        Object.entries(data).forEach(([key, value]) => {
-          if (value) {
-            url.searchParams.set(key, value);
-          }
-        });
+      if (returnUrl) {
+        params.set("returnUrl", returnUrl);
       }
+      url.hash = `gift?${params.toString()}`;
 
       return url.toString();
     }
@@ -1122,8 +1469,21 @@
     }
 
     function generateLink() {
+      if (isPhotoProcessing) {
+        showToast("Aguarde a foto terminar de carregar.");
+        return;
+      }
+
+      const validation = validateRequiredFields();
+      if (!validation.isValid) {
+        validation.firstInvalidInput?.focus?.();
+        showToast("Preencha os campos obrigatorios.");
+        return;
+      }
+
+      clearBuilderDraft();
       const data = readForm();
-      const giftUrl = buildAbsoluteUrl(VIEWS.letter, data);
+      const giftUrl = buildGiftShareUrl(data);
       els.linkBox.textContent = giftUrl;
       els.linkBox.classList.add("show");
       els.copyBtn.classList.remove("hidden");
@@ -1132,17 +1492,23 @@
       renderGift(data);
       setPreviewSession(false);
       showView(VIEWS.customize);
-      updateHistory("replaceState", buildRelativeUrl(VIEWS.customize, data));
+      fillForm({
+        recipient: "",
+        sender: "",
+        message: "",
+        music: "",
+        openText: "",
+        theme: ""
+      });
+      renderGift(readForm());
+      updateHistory("replaceState", buildRelativeUrl(VIEWS.customize));
       showToast("Link gerado com sucesso.");
     }
 
-    function openPreviewInPlace() {
-      previewSnapshot = readForm();
-      renderGift(previewSnapshot);
-      setPreviewSession(true);
-      showView(VIEWS.letter);
-      updateHistory("pushState", buildRelativeUrl(VIEWS.customize), { previewLock: true });
-      showToast("Prévia aberta.");
+    function openDemoPreview() {
+      saveBuilderDraft();
+      const returnUrl = new URL(buildRelativeUrl(VIEWS.customize), location.href).toString();
+      location.assign(buildGiftShareUrl(fixedExample, { preview: true, returnUrl }));
     }
 
     function closePreviewToCustomization() {
@@ -1166,19 +1532,20 @@
     }
 
     function clearForm() {
+      clearBuilderDraft();
       fillForm({
         recipient: "",
         sender: "",
         message: "",
-        photo: "",
         music: "",
-        accent: "Hoje é um bom dia para lembrar o quanto você é importante.",
-        openText: ""
+        openText: "",
+        theme: ""
       });
       els.linkBox.textContent = "";
       els.linkBox.classList.remove("show");
       els.copyBtn.classList.add("hidden");
       els.openGiftLink.classList.add("hidden");
+      els.openGiftLink.removeAttribute("href");
       renderGift(readForm());
       setPreviewSession(false);
       showView(VIEWS.customize);
@@ -1188,18 +1555,29 @@
 
     function initFromUrl() {
       let params = new URLSearchParams(location.search);
-      const legacyHash = location.hash.startsWith("#gift?");
+      const hashGift = location.hash.startsWith("#gift?");
 
-      if (!params.toString() && legacyHash) {
+      if (!params.toString() && hashGift) {
         params = new URLSearchParams(location.hash.replace("#gift?", ""));
         params.set("view", VIEWS.letter);
       }
 
       const incomingView = params.get("view");
       const hasData = hasIncomingData(params);
+
+      if (hashGift || incomingView === VIEWS.letter) {
+        const redirectData = hasData ? decodeData(params) : readForm();
+        location.replace(buildGiftShareUrl(redirectData));
+        return;
+      }
+
+      if (!hasData) {
+        restoreBuilderDraft();
+      }
+
       const data = hasData ? decodeData(params) : readForm();
 
-      if (hasData) {
+      if (hasData && incomingView !== VIEWS.letter) {
         fillForm(data);
       }
 
@@ -1215,9 +1593,6 @@
         showView(VIEWS.intro, { scroll: false });
       }
 
-      if (legacyHash) {
-        updateHistory("replaceState", buildRelativeUrl(VIEWS.letter, data));
-      }
     }
 
     function createStars() {
@@ -1257,9 +1632,16 @@
     els.clearBtn.addEventListener("click", clearForm);
     els.copyBtn.addEventListener("click", copyLink);
     els.openGiftBtn.addEventListener("click", openGiftExperience);
-    els.loadDemoBtn.addEventListener("click", openPreviewInPlace);
+    els.loadDemoBtn.addEventListener("click", openDemoPreview);
+    els.photoFile.addEventListener("change", handlePhotoSelection);
     els.previewBackBtn.addEventListener("click", closePreviewToCustomization);
     els.startFlowBtn.addEventListener("click", () => openCustomization("replace"));
+    [els.openText, els.recipientName, els.message, els.senderName].forEach((input) => {
+      input.addEventListener("input", () => clearFieldInvalid(input));
+    });
+    els.themeOptions.forEach((button) => {
+      button.addEventListener("click", () => setThemeChoice(button.dataset.theme));
+    });
     window.addEventListener("resize", () => {
       createStars();
       createHearts();
@@ -1280,6 +1662,7 @@
 
     createStars();
     createHearts();
+    setThemeChoice("");
     initFromUrl();
   </script>
 </body>
