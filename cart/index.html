@@ -951,9 +951,52 @@ body.letter-open .grow-ans {
 
 .music-btn {
   background: var(--control-bg) !important;
-  color: var(--control-text) !important;
+  color: #fff !important;
   border: 1px solid var(--control-border) !important;
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.16);
+}
+
+.music-btn #playIcon,
+.music-btn #pauseIcon {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 18px;
+  height: 18px;
+  color: #fff !important;
+  font-size: 0;
+  line-height: 0;
+  transform: translate(-50%, -50%);
+}
+
+.music-btn #playIcon::before {
+  content: "";
+  display: block;
+  width: 0;
+  height: 0;
+  margin-left: 3px;
+  border-top: 9px solid transparent;
+  border-bottom: 9px solid transparent;
+  border-left: 14px solid #fff;
+}
+
+.music-btn #pauseIcon::before,
+.music-btn #pauseIcon::after {
+  content: "";
+  position: absolute;
+  top: 1px;
+  width: 5px;
+  height: 16px;
+  border-radius: 2px;
+  background: #fff;
+}
+
+.music-btn #pauseIcon::before {
+  left: 3px;
+}
+
+.music-btn #pauseIcon::after {
+  right: 3px;
 }
 
 #volumeSlider {
@@ -1795,6 +1838,20 @@ body.letter-open .grow-ans {
         }
       }
 
+      function decodeDataPayload(value) {
+        if (!value) return null;
+
+        try {
+          const normalized = value.replace(/-/g, "+").replace(/_/g, "/");
+          const padded = normalized.padEnd(Math.ceil(normalized.length / 4) * 4, "=");
+          const binary = atob(padded);
+          const bytes = Uint8Array.from(binary, (char) => char.charCodeAt(0));
+          return JSON.parse(new TextDecoder().decode(bytes));
+        } catch {
+          return null;
+        }
+      }
+
       function normalizeTheme(value) {
         const normalized = (value || "").trim().toLowerCase();
         const aliases = {
@@ -1816,6 +1873,22 @@ body.letter-open .grow-ans {
           params = new URLSearchParams(location.hash.replace("#gift?", ""));
         }
 
+        const payload = decodeDataPayload(params.get("d") || "");
+        if (payload) {
+          return {
+            openText: payload.openText || DEFAULTS.openText,
+            recipient: payload.recipient || DEFAULTS.recipient,
+            message: payload.message || DEFAULTS.message,
+            sender: payload.sender || DEFAULTS.sender,
+            accent: payload.accent || DEFAULTS.accent,
+            music: payload.music || DEFAULTS.music,
+            photo: payload.photo || DEFAULTS.photo,
+            theme: normalizeTheme(payload.theme || DEFAULTS.theme),
+            preview: params.get("preview") === "1",
+            returnUrl: safeDecode(params.get("returnUrl") || "")
+          };
+        }
+
         return {
           openText: safeDecode(params.get("openText") || DEFAULTS.openText),
           recipient: safeDecode(params.get("recipient") || DEFAULTS.recipient),
@@ -1835,6 +1908,14 @@ body.letter-open .grow-ans {
         if (/^(https?:|data:|blob:|file:)/i.test(value)) return value;
         if (value.startsWith("../") || value.startsWith("./") || value.startsWith("/")) return value;
         if (value.startsWith("musica/")) return `../${value}`;
+        return value;
+      }
+
+      function resolvePhotoSource(value) {
+        if (!value) return "";
+        if (/^(https?:|data:|blob:|file:)/i.test(value)) return value;
+        if (value.startsWith("../") || value.startsWith("./") || value.startsWith("/")) return value;
+        if (value.startsWith("imagens/")) return `../${value}`;
         return value;
       }
 
@@ -1878,7 +1959,7 @@ body.letter-open .grow-ans {
 
         if (letterPhotoWrap && letterPhoto) {
           if (config.photo) {
-            letterPhoto.src = config.photo;
+            letterPhoto.src = resolvePhotoSource(config.photo);
             letterPhoto.alt = `Foto da carta ${visibleLetterTitle}`;
             letterPhotoWrap.classList.remove("hidden");
           } else {
