@@ -110,11 +110,30 @@ letter-container:has(.letter.opened) {
 }
 
 body {
+  position: relative;
+  width: 100%;
+  height: 100vh;
   min-height: 100vh;
+  overflow: hidden;
   background: var(--page-background-solid);
   background-image: var(--page-background-overlay), var(--page-background);
   color: var(--txt-color);
   transition: background 0.35s ease, color 0.35s ease;
+}
+
+html {
+  overflow: hidden;
+  background: #39564f;
+  background-image: none;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+@supports (height: 100dvh) {
+  body {
+    height: 100dvh;
+    min-height: 100dvh;
+  }
 }
 
 body::before {
@@ -739,18 +758,24 @@ body.letter-open .grow-ans {
 }
 
 #audio-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: var(--overlay-bg);
+  position: absolute;
+  inset: 0;
+  width: auto;
+  height: auto;
+  min-height: 100%;
+  background: linear-gradient(135deg, rgba(99, 49, 78, 0.94), #39564f);
   z-index: 9999;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
   transition: opacity 0.8s ease;
+}
+
+@supports (height: 100dvh) {
+  #audio-overlay {
+    min-height: 100%;
+  }
 }
 
 .overlay-content {
