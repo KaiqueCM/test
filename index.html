@@ -11,6 +11,9 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Uma surpresa especial" />
   <meta name="twitter:description" content="&#8203;" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg-1: #0c1c2a;
@@ -28,10 +31,18 @@
 
     * { box-sizing: border-box; }
 
+    html {
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top, rgba(140, 205, 189, 0.14), transparent 30%),
+        linear-gradient(180deg, var(--bg-1), var(--bg-2) 50%, var(--bg-3));
+    }
+
     html, body {
       margin: 0;
-      min-height: 100%;
+      min-height: 100vh;
       font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+      background-color: var(--bg-3);
       background:
         radial-gradient(circle at top, rgba(140, 205, 189, 0.14), transparent 30%),
         linear-gradient(180deg, var(--bg-1), var(--bg-2) 50%, var(--bg-3));
@@ -47,7 +58,8 @@
       background:
         radial-gradient(circle at 15% 20%, rgba(255, 225, 163, 0.10), transparent 18%),
         radial-gradient(circle at 85% 12%, rgba(140, 205, 189, 0.10), transparent 20%),
-        radial-gradient(circle at 50% 75%, rgba(255, 255, 255, 0.04), transparent 22%);
+        radial-gradient(circle at 50% 75%, rgba(255, 255, 255, 0.04), transparent 22%),
+        linear-gradient(180deg, var(--bg-1), var(--bg-2) 50%, var(--bg-3));
       z-index: 0;
     }
 
@@ -685,6 +697,46 @@
 
     .gift.show { display: block; }
 
+    .gift {
+      --preview-paper-top: rgba(255, 248, 251, 0.92);
+      --preview-paper-mid: rgba(250, 229, 239, 0.66);
+      --preview-paper-bottom: rgba(238, 188, 212, 0.28);
+      --preview-paper-accent: rgba(194, 225, 210, 0.22);
+      --preview-paper-border: rgba(232, 197, 107, 0.8);
+      --preview-letter-text: #52624f;
+      --preview-signature: #8f5e76;
+    }
+
+    .gift[data-theme="verao"] {
+      --preview-paper-top: rgba(255, 249, 232, 0.94);
+      --preview-paper-mid: rgba(255, 233, 184, 0.68);
+      --preview-paper-bottom: rgba(255, 189, 103, 0.26);
+      --preview-paper-accent: rgba(150, 222, 247, 0.22);
+      --preview-paper-border: rgba(240, 174, 70, 0.82);
+      --preview-letter-text: #70502f;
+      --preview-signature: #b86134;
+    }
+
+    .gift[data-theme="outono"] {
+      --preview-paper-top: rgba(255, 246, 233, 0.94);
+      --preview-paper-mid: rgba(243, 222, 194, 0.66);
+      --preview-paper-bottom: rgba(206, 134, 80, 0.26);
+      --preview-paper-accent: rgba(228, 171, 104, 0.22);
+      --preview-paper-border: rgba(177, 111, 55, 0.8);
+      --preview-letter-text: #614125;
+      --preview-signature: #7e4527;
+    }
+
+    .gift[data-theme="inverno"] {
+      --preview-paper-top: rgba(248, 252, 255, 0.94);
+      --preview-paper-mid: rgba(224, 237, 249, 0.66);
+      --preview-paper-bottom: rgba(154, 189, 223, 0.24);
+      --preview-paper-accent: rgba(184, 213, 243, 0.22);
+      --preview-paper-border: rgba(126, 166, 208, 0.76);
+      --preview-letter-text: #365675;
+      --preview-signature: #3d628c;
+    }
+
     .cover {
       position: absolute;
       inset: 0;
@@ -800,11 +852,15 @@
 
     .letter-card {
       padding: clamp(20px, 3vw, 34px);
-      border-radius: 30px;
-      background: rgba(255,255,255,.11);
-      border: 1px solid rgba(255,255,255,.16);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(16px);
+      border-radius: 20px;
+      background:
+        radial-gradient(circle at 14% 8%, rgba(255, 255, 255, 0.72) 0%, rgba(255, 255, 255, 0) 34%),
+        radial-gradient(circle at 92% 0%, var(--preview-paper-accent) 0%, rgba(255, 255, 255, 0) 38%),
+        radial-gradient(circle at 50% 110%, var(--preview-paper-accent) 0%, rgba(255, 255, 255, 0) 58%),
+        linear-gradient(180deg, var(--preview-paper-top) 0%, var(--preview-paper-mid) 50%, var(--preview-paper-bottom) 100%);
+      border: 3px dotted var(--preview-paper-border);
+      box-shadow: 0 18px 42px rgba(0, 0, 0, 0.24), inset 0 1px 0 rgba(255, 255, 255, 0.48);
+      backdrop-filter: blur(10px);
     }
 
     .eyebrow {
@@ -821,21 +877,24 @@
       font-size: clamp(34px, 6vw, 54px);
       line-height: 1.02;
       font-family: Georgia, serif;
+      color: var(--preview-signature);
       text-wrap: balance;
       overflow-wrap: anywhere;
     }
 
     .message {
       margin: 18px 0 18px;
-      color: var(--white);
+      color: var(--preview-letter-text);
+      font-family: 'Caveat', 'Segoe Script', 'Bradley Hand', cursive;
+      font-weight: 600;
       font-size: clamp(16px, 2vw, 19px);
-      line-height: 1.9;
+      line-height: 1.75;
       white-space: pre-wrap;
     }
 
     .signature {
       margin-top: 18px;
-      color: var(--gold);
+      color: var(--preview-signature);
       font-weight: 700;
       font-size: 18px;
     }
@@ -910,8 +969,13 @@
       .card { border-radius: 24px; }
       .panel, .hero { padding: 16px; }
       .hero-centered {
-        min-height: calc(100svh - 24px);
+        min-height: calc(100vh - 24px);
         justify-content: center;
+      }
+      @supports (height: 100lvh) {
+        .hero-centered {
+          min-height: calc(100lvh - 24px);
+        }
       }
       .title {
         max-width: 12ch;
@@ -1041,6 +1105,36 @@
                   </button>
                   <button type="button" class="photo-option" data-photo="imagens/drag%C3%B5es.jpg" aria-selected="false">
                     <img class="photo-option-thumb" src="imagens/drag%C3%B5es.jpg" alt="Dragoes" />
+                  </button>
+                  <button type="button" class="photo-option" data-photo="imagens/img1.jpg" aria-selected="false">
+                    <img class="photo-option-thumb" src="imagens/img1.jpg" alt="Imagem 1" />
+                  </button>
+                  <button type="button" class="photo-option" data-photo="imagens/img2.jpg" aria-selected="false">
+                    <img class="photo-option-thumb" src="imagens/img2.jpg" alt="Imagem 2" />
+                  </button>
+                  <button type="button" class="photo-option" data-photo="imagens/img3.jpg" aria-selected="false">
+                    <img class="photo-option-thumb" src="imagens/img3.jpg" alt="Imagem 3" />
+                  </button>
+                  <button type="button" class="photo-option" data-photo="imagens/img4.jpg" aria-selected="false">
+                    <img class="photo-option-thumb" src="imagens/img4.jpg" alt="Imagem 4" />
+                  </button>
+                  <button type="button" class="photo-option" data-photo="imagens/moo.jpg" aria-selected="false">
+                    <img class="photo-option-thumb" src="imagens/moo.jpg" alt="Moo" />
+                  </button>
+                  <button type="button" class="photo-option" data-photo="imagens/panda.jpg" aria-selected="false">
+                    <img class="photo-option-thumb" src="imagens/panda.jpg" alt="Panda" />
+                  </button>
+                  <button type="button" class="photo-option" data-photo="imagens/pardo.jpg" aria-selected="false">
+                    <img class="photo-option-thumb" src="imagens/pardo.jpg" alt="Urso pardo" />
+                  </button>
+                  <button type="button" class="photo-option" data-photo="imagens/polar.jpg" aria-selected="false">
+                    <img class="photo-option-thumb" src="imagens/polar.jpg" alt="Urso polar" />
+                  </button>
+                  <button type="button" class="photo-option" data-photo="imagens/stch.jpg" aria-selected="false">
+                    <img class="photo-option-thumb" src="imagens/stch.jpg" alt="Stitch novo" />
+                  </button>
+                  <button type="button" class="photo-option" data-photo="imagens/stch2.jpg" aria-selected="false">
+                    <img class="photo-option-thumb" src="imagens/stch2.jpg" alt="Stitch novo 2" />
                   </button>
                 </div>
               </div>
@@ -1445,6 +1539,7 @@
 
     function renderGift(data) {
       const visibleSender = data.sender || defaultSender;
+      els.giftSection.dataset.theme = normalizeTheme(data.theme || defaultTheme);
       els.giftRecipient.textContent = data.recipient || defaultRecipient;
       els.giftMessage.textContent = data.message || defaultMessage;
       els.giftSender.textContent = visibleSender;

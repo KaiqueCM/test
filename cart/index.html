@@ -55,6 +55,9 @@ letter-container:has(.letter.opened) {
   --paper-panel-accent: rgba(194, 225, 210, 0.16);
   --paper-edge: rgba(239, 189, 213, 0.32);
   --paper-border: rgba(111, 84, 101, 0.42);
+  --paper-dot-border: rgba(232, 197, 107, 0.82);
+  --paper-glow: rgba(173, 215, 194, 0.34);
+  --letter-message-color: #52624f;
   --letter-title-color: #c85b87;
   --letter-title-gradient: linear-gradient(90deg, #fff8f0 0%, #ffc7dd 34%, #e98fb2 64%, #b8dfca 100%);
   --signature-color: #8f5e76;
@@ -280,23 +283,21 @@ body::after {
 
 .envelope > .letter > .text {
   font-family: 'Caveat', 'Segoe Script', 'Bradley Hand', cursive;
-  color: var(--txt-color);
+  color: var(--letter-message-color);
   text-align: left;
   font-size: 24px;
   position: relative;
-  border: 3px solid transparent;
-  border-radius: 16px;
+  border: 3px dotted var(--paper-dot-border);
+  border-radius: 18px;
   background:
-    linear-gradient(145deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.08) 24%, rgba(255, 255, 255, 0) 42%) padding-box,
-    radial-gradient(circle at 18% 18%, var(--paper-panel-top) 0%, rgba(255, 255, 255, 0) 46%) padding-box,
-    radial-gradient(circle at 84% 24%, var(--paper-panel-accent) 0%, rgba(255, 255, 255, 0) 50%) padding-box,
-    radial-gradient(circle at 50% 108%, var(--paper-panel-bottom) 0%, rgba(255, 255, 255, 0) 68%) padding-box,
-    linear-gradient(180deg, var(--paper-panel-top) 0%, var(--paper-panel-middle) 44%, var(--paper-panel-bottom) 100%) padding-box,
-    linear-gradient(145deg, rgba(255, 255, 255, 0.34) 0%, var(--paper-border) 18%, rgba(255, 255, 255, 0.06) 100%) border-box;
-  background-clip: padding-box, padding-box, padding-box, padding-box, padding-box, border-box;
-  padding: 10px;
+    radial-gradient(circle at 14% 8%, rgba(255, 255, 255, 0.78) 0%, rgba(255, 255, 255, 0) 34%),
+    radial-gradient(circle at 94% 0%, var(--paper-panel-accent) 0%, rgba(255, 255, 255, 0) 36%),
+    radial-gradient(circle at 50% 112%, var(--paper-glow) 0%, rgba(255, 255, 255, 0) 58%),
+    linear-gradient(180deg, var(--paper-panel-top) 0%, var(--paper-panel-middle) 50%, var(--paper-panel-bottom) 100%);
+  background-clip: padding-box;
+  padding: 14px;
   height: 100%;
-  line-height: 28px;
+  line-height: 1.58;
   cursor: pointer;
   overflow: scroll;
   overflow-x: hidden;
@@ -305,14 +306,15 @@ body::after {
   overflow-wrap: break-word;
   hyphens: auto;
   white-space: pre-wrap;
-  letter-spacing: 0.015em;
+  letter-spacing: 0.01em;
   max-width: 100%;
   box-sizing: border-box;
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.24),
-    inset 0 -16px 28px rgba(255, 255, 255, 0.04),
-    0 10px 24px rgba(27, 19, 33, 0.08);
+    inset 0 1px 0 rgba(255, 255, 255, 0.46),
+    inset 0 -22px 34px rgba(255, 255, 255, 0.14),
+    0 10px 26px rgba(27, 19, 33, 0.08);
   backdrop-filter: blur(3px);
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.28);
 }
 
 .envelope > .letter > .text p {
@@ -363,8 +365,14 @@ body::after {
   aspect-ratio: 16 / 10;
   display: grid;
   place-items: center;
-  overflow: visible;
-  background: transparent;
+  overflow: hidden;
+  padding: 2px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.42), rgba(255, 255, 255, 0.08)) padding-box,
+    linear-gradient(135deg, var(--paper-dot-border), rgba(255, 255, 255, 0.24), var(--paper-border)) border-box;
+  border: 2px solid transparent;
+  border-radius: 18px;
+  box-shadow: 0 12px 22px rgba(27, 19, 33, 0.1), 0 0 18px var(--paper-glow);
   perspective: 1200px;
 }
 
@@ -374,27 +382,26 @@ body::after {
 
 .letter-photo {
   position: relative;
-  width: auto;
-  height: auto;
-  max-width: 100%;
-  max-height: 100%;
+  width: 100%;
+  height: 100%;
   display: block;
-  object-fit: contain;
+  object-fit: cover;
   object-position: center;
-  border-radius: 22px;
+  border-radius: 14px;
   background: transparent;
   box-shadow: none;
-  filter: var(--photo-shadow);
-  transform: rotateX(7deg) rotateY(-6deg);
+  filter: saturate(1.02);
+  transform: none;
   transform-origin: center top;
 }
 
 .letter-card-message {
   margin: 0;
   width: 100%;
-  color: var(--txt-color);
+  color: var(--letter-message-color);
   white-space: pre-wrap;
   line-height: 1.55;
+  font-weight: 600;
 }
 
 .letter-card-signature {
@@ -1583,6 +1590,9 @@ body.letter-open .grow-ans {
           "--paper-panel-accent": "rgba(194, 225, 210, 0.16)",
           "--paper-edge": "rgba(239, 189, 213, 0.32)",
           "--paper-border": "rgba(111, 84, 101, 0.42)",
+          "--paper-dot-border": "rgba(232, 197, 107, 0.82)",
+          "--paper-glow": "rgba(173, 215, 194, 0.34)",
+          "--letter-message-color": "#52624f",
           "--letter-title-color": "#c85b87",
           "--letter-title-gradient": "linear-gradient(90deg, #fff8f1 0%, #ffc8de 32%, #ea90b3 62%, #b9e0cb 100%)",
           "--signature-color": "#8f5e76",
@@ -1652,6 +1662,9 @@ body.letter-open .grow-ans {
           "--paper-panel-accent": "rgba(150, 222, 247, 0.16)",
           "--paper-edge": "rgba(255, 204, 124, 0.34)",
           "--paper-border": "rgba(166, 110, 71, 0.44)",
+          "--paper-dot-border": "rgba(240, 174, 70, 0.82)",
+          "--paper-glow": "rgba(150, 222, 247, 0.32)",
+          "--letter-message-color": "#70502f",
           "--letter-title-color": "#e77a2d",
           "--letter-title-gradient": "linear-gradient(90deg, #fff8db 0%, #ffd06f 30%, #ff9752 62%, #8edcff 100%)",
           "--signature-color": "#b86134",
@@ -1721,6 +1734,9 @@ body.letter-open .grow-ans {
           "--paper-panel-accent": "rgba(228, 171, 104, 0.16)",
           "--paper-edge": "rgba(201, 142, 87, 0.32)",
           "--paper-border": "rgba(139, 82, 44, 0.45)",
+          "--paper-dot-border": "rgba(177, 111, 55, 0.8)",
+          "--paper-glow": "rgba(210, 142, 82, 0.24)",
+          "--letter-message-color": "#614125",
           "--letter-title-color": "#9a4d22",
           "--letter-title-gradient": "linear-gradient(90deg, #fff1db 0%, #e4ab68 32%, #c97b40 62%, #8f522b 100%)",
           "--signature-color": "#7e4527",
@@ -1790,6 +1806,9 @@ body.letter-open .grow-ans {
           "--paper-panel-accent": "rgba(184, 213, 243, 0.16)",
           "--paper-edge": "rgba(175, 203, 233, 0.34)",
           "--paper-border": "rgba(96, 128, 160, 0.42)",
+          "--paper-dot-border": "rgba(126, 166, 208, 0.76)",
+          "--paper-glow": "rgba(184, 213, 243, 0.34)",
+          "--letter-message-color": "#365675",
           "--letter-title-color": "#4a7aaa",
           "--letter-title-gradient": "linear-gradient(90deg, #f8fdff 0%, #d6e5ff 30%, #9cbff0 60%, #6d97db 100%)",
           "--signature-color": "#3d628c",
