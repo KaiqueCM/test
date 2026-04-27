@@ -7,6 +7,8 @@
   <meta name="author" content="NexKai" />
   <meta name="copyright" content="Copyright (c) 2026 NexKai. Todos os direitos reservados." />
   <meta name="description" content="&#8203;" />
+  <link rel="icon" type="image/png" href="imagens/NK2.png" />
+  <link rel="apple-touch-icon" href="imagens/NK2.png" />
   <meta name="robots" content="noindex, noarchive, nosnippet, noimageindex" />
   <meta http-equiv="Cache-Control" content="no-store" />
   <meta http-equiv="Pragma" content="no-cache" />
@@ -1259,7 +1261,7 @@
 
   <div class="toast" id="toast"></div>
 
-  <div class="nexkai-credit" aria-label="Creditos">Criado por NexKai</div>
+  <div class="nexkai-credit" aria-label="Creditos">Desenvolvido por NexKai</div>
   <style>
     .nexkai-credit {
       position: fixed;
@@ -1784,7 +1786,7 @@
       els.openGiftLink.href = giftUrl;
       renderGift(data);
       setPreviewSession(false);
-      showView(VIEWS.customize);
+      showView(VIEWS.customize, { scroll: false });
       fillForm({
         recipient: "",
         sender: "",

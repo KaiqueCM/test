@@ -2,8 +2,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Presente Digital</title>
-  <meta name="author" content="NexKai">
-  <meta name="copyright" content="Copyright (c) 2026 NexKai. Todos os direitos reservados.">
+  <link rel="icon" type="image/png" href="../imagens/NK2.png">
+  <link rel="apple-touch-icon" href="../imagens/NK2.png">
   
   <link rel="stylesheet" href="./styles/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
   <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin="anonymous">
@@ -1584,7 +1584,7 @@ body.letter-open .grow-ans {
       });
     });
   </script>
-  <div class="nexkai-credit" aria-label="Creditos">Criado por NexKai</div>
+  <div class="nexkai-credit hidden" id="nexkaiCredit" aria-label="Creditos">Desenvolvido por NexKai</div>
   <style>
     .nexkai-credit {
       position: fixed;
@@ -2076,9 +2076,18 @@ body.letter-open .grow-ans {
         });
       }
 
+      function setupNexKaiCredit(config) {
+        const credit = document.getElementById("nexkaiCredit");
+
+        if (credit) {
+          credit.classList.toggle("hidden", !config.preview);
+        }
+      }
+
       const config = parseIncomingConfig();
       applyConfig(config);
       setupPreviewReturn(config);
+      setupNexKaiCredit(config);
     })();
   </script>
   <script>
