@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Presente Digital</title>
   <meta name="description" content="&#8203;" />
+  <meta name="robots" content="noindex, noarchive, nosnippet, noimageindex" />
+  <meta http-equiv="Cache-Control" content="no-store" />
+  <meta http-equiv="Pragma" content="no-cache" />
   <meta property="og:title" content="Uma surpresa especial" />
   <meta property="og:description" content="&#8203;" />
   <meta property="og:type" content="website" />
@@ -320,6 +323,19 @@
       border: 1px solid rgba(255,255,255,.14);
     }
 
+    .example-picker {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      width: min(720px, 100%);
+      margin: 0 auto;
+    }
+
+    .example-picker .theme-option {
+      min-height: 50px;
+      border-radius: 16px;
+    }
+
     .form-header {
       display: flex;
       justify-content: space-between;
@@ -517,7 +533,7 @@
     }
 
     .theme-option[data-theme="inverno"] {
-      background: linear-gradient(135deg, rgba(156, 198, 242, .3), rgba(210, 232, 255, .16));
+      background: linear-gradient(135deg, rgba(29, 44, 91, .72), rgba(141, 175, 255, .28), rgba(255, 239, 189, .2));
     }
 
     .field.is-invalid label {
@@ -728,13 +744,13 @@
     }
 
     .gift[data-theme="inverno"] {
-      --preview-paper-top: rgba(248, 252, 255, 0.94);
-      --preview-paper-mid: rgba(224, 237, 249, 0.66);
-      --preview-paper-bottom: rgba(154, 189, 223, 0.24);
-      --preview-paper-accent: rgba(184, 213, 243, 0.22);
-      --preview-paper-border: rgba(126, 166, 208, 0.76);
-      --preview-letter-text: #365675;
-      --preview-signature: #3d628c;
+      --preview-paper-top: rgba(247, 250, 255, 0.94);
+      --preview-paper-mid: rgba(221, 230, 255, 0.64);
+      --preview-paper-bottom: rgba(89, 117, 190, 0.2);
+      --preview-paper-accent: rgba(255, 235, 178, 0.2);
+      --preview-paper-border: rgba(123, 157, 228, 0.8);
+      --preview-letter-text: #2f4474;
+      --preview-signature: #4d5f9d;
     }
 
     .cover {
@@ -998,6 +1014,7 @@
       }
       .form-note-centered { font-size: 14px; }
       .form-grid { grid-template-columns: 1fr; }
+      .example-picker { grid-template-columns: 1fr; }
       .hero-actions, .actions { flex-direction: column; }
       button, .button-link { width: 100%; }
       .photo-options-card { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -1058,12 +1075,14 @@
       <section class="single-stage">
         <section class="card panel panel-centered" id="formPanel">
           <div class="form-header form-header-centered">
-            <h2 class="section-title">Monte a sua surpresa do seu jeito.</h2>
-            <p class="form-note form-note-centered">Preencha uma vez, gere o link e envie.</p>
+            <h2 class="section-title">Monte uma surpresa para alguém especial</h2>
           </div>
 
-          <div class="actions actions-centered">
-            <button class="btn-secondary" id="loadDemoBtn">Carregar exemplo</button>
+          <div class="example-picker" id="examplePicker" aria-label="Exemplos de carta por tema">
+            <button type="button" class="theme-option example-theme-button" data-theme="primavera">Exemplo Primavera</button>
+            <button type="button" class="theme-option example-theme-button" data-theme="verao">Exemplo Verão</button>
+            <button type="button" class="theme-option example-theme-button" data-theme="outono">Exemplo Outono</button>
+            <button type="button" class="theme-option example-theme-button" data-theme="inverno">Exemplo Inverno</button>
           </div>
 
           <div class="form-grid">
@@ -1285,7 +1304,7 @@
       coverTitle: $("coverTitle"),
       openGiftBtn: $("openGiftBtn"),
       toast: $("toast"),
-      loadDemoBtn: $("loadDemoBtn"),
+      exampleButtons: [...document.querySelectorAll("#examplePicker .example-theme-button")],
       formPanel: $("formPanel")
     };
 
@@ -1296,14 +1315,43 @@
     const defaultAccent = "Hoje é um bom dia para lembrar o quanto você é importante.";
     const defaultOpenText = "Uma surpresa especial";
     const defaultTheme = "primavera";
-    const fixedExample = {
-      recipient: "Uma mensagem especial",
-      sender: "Com carinho",
-      message: "Separei esta lembrança para transformar o dia em um momento ainda mais bonito.",
-      photo: defaultPhoto,
-      music: "musica/Ed Sheeran - Photograph.mp3",
-      openText: "Uma surpresa feita com carinho",
-      theme: defaultTheme
+    const exampleCards = {
+      primavera: {
+        recipient: "Para florescer o seu dia",
+        sender: "Com carinho",
+        message: "Preparei esta carta para lembrar que pequenas gentilezas tambem podem virar momentos inesqueciveis.",
+        photo: defaultPhoto,
+        music: "musica/Ed Sheeran - Photograph.mp3",
+        openText: "Uma surpresa leve e carinhosa",
+        theme: "primavera"
+      },
+      verao: {
+        recipient: "Um brilho para voce",
+        sender: "Com afeto",
+        message: "Que esta mensagem chegue como um instante quente, bonito e cheio de alegria para guardar no coracao.",
+        photo: "imagens/img2.jpg",
+        music: "musica/Lauv - Paris in the Rain.mp3",
+        openText: "Uma surpresa cheia de luz",
+        theme: "verao"
+      },
+      outono: {
+        recipient: "Uma lembranca acolhedora",
+        sender: "Com cuidado",
+        message: "Alguns sentimentos merecem calma. Por isso, esta carta guarda um pouco de ternura para voce revisitar quando quiser.",
+        photo: "imagens/img3.jpg",
+        music: "musica/James Arthur - Say You Won't Let Go.mp3",
+        openText: "Uma surpresa para aquecer o dia",
+        theme: "outono"
+      },
+      inverno: {
+        recipient: "Uma carta entre estrelas",
+        sender: "Com todo carinho",
+        message: "Que esta surpresa brilhe baixinho e transforme este momento em uma lembranca especial, feita so para voce.",
+        photo: "imagens/img4.jpg",
+        music: "musica/Sleeping At Last - Turning Page.mp3",
+        openText: "Uma surpresa sob as estrelas",
+        theme: "inverno"
+      }
     };
     const CART_PAGE_PATH = "cart/index.html";
     const BUILDER_DRAFT_KEY = "gift-builder-draft";
@@ -1367,7 +1415,9 @@
         verao: "verao",
         "verão": "verao",
         outono: "outono",
-        inverno: "inverno"
+        inverno: "inverno",
+        "cartas-estrelas": "inverno",
+        "cartas entre estrelas": "inverno"
       };
 
       return aliases[normalized] || "";
@@ -1731,10 +1781,11 @@
       showToast("Link gerado com sucesso.");
     }
 
-    function openDemoPreview() {
+    function openDemoPreview(theme = defaultTheme) {
       saveBuilderDraft();
+      const example = exampleCards[normalizeTheme(theme)] || exampleCards[defaultTheme];
       const returnUrl = new URL(buildRelativeUrl(VIEWS.customize), location.href).toString();
-      location.assign(buildGiftShareUrl(fixedExample, { preview: true, returnUrl }));
+      location.replace(buildGiftShareUrl(example, { preview: true, returnUrl }));
     }
 
     function closePreviewToCustomization() {
@@ -1791,7 +1842,7 @@
       const incomingView = params.get("view");
       const hasData = hasIncomingData(params);
 
-      if (hashGift || incomingView === VIEWS.letter) {
+      if (hashGift) {
         const redirectData = hasData ? decodeData(params) : readForm();
         location.replace(buildGiftShareUrl(redirectData));
         return;
@@ -1811,9 +1862,7 @@
       setPreviewSession(false);
       previewSnapshot = null;
 
-      if (incomingView === VIEWS.letter) {
-        showView(VIEWS.letter, { scroll: false });
-      } else if (incomingView === VIEWS.customize || hasData) {
+      if (incomingView === VIEWS.customize || hasData) {
         showView(VIEWS.customize, { scroll: false });
       } else {
         showView(VIEWS.intro, { scroll: false });
@@ -1858,7 +1907,9 @@
     els.clearBtn.addEventListener("click", clearForm);
     els.copyBtn.addEventListener("click", copyLink);
     els.openGiftBtn.addEventListener("click", openGiftExperience);
-    els.loadDemoBtn.addEventListener("click", openDemoPreview);
+    els.exampleButtons.forEach((button) => {
+      button.addEventListener("click", () => openDemoPreview(button.dataset.theme));
+    });
     els.photoPickerButton.addEventListener("click", togglePhotoOptions);
     els.photoOptionButtons.forEach((button) => {
       button.addEventListener("click", () => {
@@ -1906,6 +1957,49 @@
     createHearts();
     setThemeChoice("");
     initFromUrl();
+  </script>
+  <script>
+    (() => {
+      const isEditable = (target) => {
+        const element = target instanceof Element ? target : null;
+        return Boolean(element?.closest("input, textarea, select, button, a, [contenteditable='true']"));
+      };
+
+      const blockedKeys = (event) => {
+        const key = event.key.toLowerCase();
+        return (
+          key === "f12" ||
+          ((event.ctrlKey || event.metaKey) && ["u", "s"].includes(key)) ||
+          ((event.ctrlKey || event.metaKey) && event.shiftKey && ["i", "j", "c"].includes(key))
+        );
+      };
+
+      document.addEventListener("contextmenu", (event) => {
+        event.preventDefault();
+      });
+
+      document.addEventListener("dragstart", (event) => {
+        event.preventDefault();
+      });
+
+      document.addEventListener("selectstart", (event) => {
+        if (!isEditable(event.target)) {
+          event.preventDefault();
+        }
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (blockedKeys(event)) {
+          event.preventDefault();
+          event.stopPropagation();
+          return false;
+        }
+
+        if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "a" && !isEditable(event.target)) {
+          event.preventDefault();
+        }
+      }, true);
+    })();
   </script>
 </body>
 </html>
